@@ -1,7 +1,7 @@
 <mat-stepper [linear]="true">
     <!-- General User Information Form -->
     <mat-step [stepControl]="generalFormGroup">
-        <form [formGroup]="generalFormGroup" (submit)="Submit()">
+        <form [formGroup]="generalFormGroup">
             <ng-template matStepLabel>General Information</ng-template>
             <!-- First Name -->
             <mat-form-field id="firstname_input" appearance="fill">
@@ -24,17 +24,25 @@
             <mat-form-field id="email_input" appearance="fill">
                 <mat-label>Enter your Email</mat-label>
                 <input type="email" matInput placeholder="Email Address" id="email" name="email" [(ngModel)]="user.email" formControlName="email">
+                <mat-error *ngIf="generalFormGroup.controls.email.invalid">{{GetEmailError()}}</mat-error>
             </mat-form-field>
             <br>
             <!-- Password -->
             <mat-form-field id="password_input" appearance="fill">
                 <mat-label>Enter Password</mat-label>
-                <input matInput placeholder="Password" id="password" name="password" [(ngModel)]="user.password" formControlName="password">
+                <input matInput placeholder="Password" [type]="hidePassword ? 'password': 'text'" id="password" name="password" 
+                    [(ngModel)]="user.password" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
             </mat-form-field>
             <!-- Confirm Password -->
             <mat-form-field id="confirm_pass_input" appearance="fill">
                 <mat-label>Confirm Your Password</mat-label>
-                <input matInput placeholder="Confirm Password" formControlName="confirmpassword">
+                <input matInput placeholder="Confirm Password" [type]="hideConfirmPassword ? 'password': 'text'" formControlName="confirmpassword">
+                <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hideConfirmPassword">
+                    <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
             </mat-form-field>
             <div id="control_1">
                 <button mat-raised-button matStepperNext color="primary">Next</button>
@@ -162,7 +170,7 @@
             <br>
             <div id="controls_2">
                 <button mat-raised-button matStepperPrevious color="accent" style="margin-right: 7px;">Back</button>
-                <button mat-raised-button type="submit" color="primary" style="margin-left: 7px;">Submit</button>
+                <button mat-raised-button (click)="Submit()" color="primary" style="margin-left: 7px;">Submit</button>
             </div>
         </form>
     </mat-step>

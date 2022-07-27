@@ -28,6 +28,7 @@ import { RegisterComponent } from './components/index/register/register.componen
 import { HomeComponent } from './components/index/home/home.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationComponent } from './components/index/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ConfirmationComponent
   ],
   imports: [
     FormsModule,

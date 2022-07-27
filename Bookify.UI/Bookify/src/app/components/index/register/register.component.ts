@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/User.models';
 
 @Component({
@@ -8,6 +9,9 @@ import { User } from 'src/app/models/User.models';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  hidePassword: Boolean = true;
+  hideConfirmPassword: Boolean = true;
 
   user: User = {
     id: "00000000-0000-0000-0000-000000000000",
@@ -26,13 +30,13 @@ export class RegisterComponent implements OnInit {
     cardnumber: '',
     cvv: 0,
     expiration: new Date()
-  }
+  };
 
   generalFormGroup = this._formBuilder.group({
     firstname: ['', Validators.required],
     lastname: [''],
     age: [''],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     confirmpassword: ['', Validators.required]
   });
@@ -56,13 +60,20 @@ export class RegisterComponent implements OnInit {
   userInfoFormGroup = this._formBuilder.group({
   });
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  GetEmailError(){
+    let emailInp = this.generalFormGroup.controls.email;
+    return emailInp.hasError('email') ? 'Not a valid Email': '';
+  }
+
   Submit(){
     console.log(this.user);
+
+    this.router.navigate(['confirm']);
   }
 
 }

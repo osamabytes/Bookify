@@ -54,3 +54,7 @@ form{
 mat-panel-title > h2{
     margin: 5px;
 }
+
+mat-error{
+    font-size: 12px;
+}
