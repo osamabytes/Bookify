@@ -1,0 +1,15 @@
+<mat-drawer-container class="sidebarcontainer">
+    <mat-drawer style="width: 200px;" mode="side" opened="">
+        <mat-nav-list>
+            <mat-list-item>
+                <a [routerLink]="['']">Home</a>
+            </mat-list-item>
+            <mat-list-item>
+                <a [routerLink]="['']">About Us</a>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
