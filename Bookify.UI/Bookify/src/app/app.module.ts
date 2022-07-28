@@ -20,6 +20,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { SidebarComponent } from './components/index/sidebar/sidebar.component';
 import { NavbarComponent } from './components/index/navbar/navbar.component';
@@ -33,6 +34,10 @@ import { AboutusComponent } from './components/index/aboutus/aboutus.component';
 import { DashboardComponent } from './components/auth/dashboard/dashboard.component';
 import { AuthSideBarComponent } from './components/auth/auth-side-bar/auth-side-bar.component';
 import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.component';
+import { BooksComponent } from './components/auth/books/books.component';
+import { BookshopsComponent } from './components/auth/bookshops/bookshops.component';
+import { AuthorsComponent } from './components/auth/authors/authors.component';
+import { CategoriesComponent } from './components/auth/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +51,11 @@ import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.c
     AboutusComponent,
     DashboardComponent,
     AuthSideBarComponent,
-    AuthNavbarComponent
+    AuthNavbarComponent,
+    BooksComponent,
+    BookshopsComponent,
+    AuthorsComponent,
+    CategoriesComponent,
   ],
   imports: [
     FormsModule,
@@ -68,7 +77,8 @@ import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.c
     MatExpansionModule,
     MatTableModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

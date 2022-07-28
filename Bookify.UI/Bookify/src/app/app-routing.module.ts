@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthorsComponent } from './components/auth/authors/authors.component';
+import { BooksComponent } from './components/auth/books/books.component';
+import { BookshopsComponent } from './components/auth/bookshops/bookshops.component';
+import { CategoriesComponent } from './components/auth/categories/categories.component';
 import { DashboardComponent } from './components/auth/dashboard/dashboard.component';
 import { AboutusComponent } from './components/index/aboutus/aboutus.component';
 import { ConfirmationComponent } from './components/index/confirmation/confirmation.component';
@@ -36,6 +40,22 @@ const routes: Routes = [
     path: "auth",
     component: DashboardComponent,
     children: [
+      {
+        path: 'books',
+        component: BooksComponent
+      },
+      {
+        path: 'bookshops',
+        component: BookshopsComponent
+      },
+      {
+        path: 'authors',
+        component: AuthorsComponent
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent
+      },
     ]
   },
   // Default Routes
