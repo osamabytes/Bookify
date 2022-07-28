@@ -18,9 +18,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 
-
-
-
 import { SidebarComponent } from './components/index/sidebar/sidebar.component';
 import { NavbarComponent } from './components/index/navbar/navbar.component';
 import { LoginComponent } from './components/index/login/login.component';
@@ -29,6 +26,8 @@ import { HomeComponent } from './components/index/home/home.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationComponent } from './components/index/confirmation/confirmation.component';
+import { LandingComponent } from './components/index/landing/landing.component';
+import { AboutusComponent } from './components/index/aboutus/aboutus.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +37,9 @@ import { ConfirmationComponent } from './components/index/confirmation/confirmat
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    LandingComponent,
+    AboutusComponent
   ],
   imports: [
     FormsModule,
@@ -57,7 +58,7 @@ import { ConfirmationComponent } from './components/index/confirmation/confirmat
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

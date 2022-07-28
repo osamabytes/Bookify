@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/User.models';
+import { User } from 'src/app/interfaces/User.interface';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
     age: 0,
     email: '',
     password: '',
+    confirmpassword: '',
     addressline1: '',
     addressline2: '',
     state: '',

@@ -5,6 +5,7 @@ export interface User{
     age: number,
     email: string,
     password: string,
+    confirmpassword: string,
     addressline1: string,
     addressline2: string,
     state: string,

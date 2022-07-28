@@ -39,7 +39,8 @@
             <!-- Confirm Password -->
             <mat-form-field id="confirm_pass_input" appearance="fill">
                 <mat-label>Confirm Your Password</mat-label>
-                <input matInput placeholder="Confirm Password" [type]="hideConfirmPassword ? 'password': 'text'" formControlName="confirmpassword">
+                <input matInput placeholder="Confirm Password" [type]="hideConfirmPassword ? 'password': 'text'" formControlName="confirmpassword" 
+                    id="confirmpassword" name="confirmpassword" [(ngModel)]="user.confirmpassword">
                 <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hideConfirmPassword">
                     <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
