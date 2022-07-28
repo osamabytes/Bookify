@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './components/auth/dashboard/dashboard.component';
 import { AboutusComponent } from './components/index/aboutus/aboutus.component';
 import { ConfirmationComponent } from './components/index/confirmation/confirmation.component';
 import { HomeComponent } from './components/index/home/home.component';
@@ -28,6 +29,13 @@ const routes: Routes = [
         path: 'confirm',
         component: ConfirmationComponent
       }
+    ]
+  },
+  // Auth Routes
+  {
+    path: "auth",
+    component: DashboardComponent,
+    children: [
     ]
   },
   // Default Routes

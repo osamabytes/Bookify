@@ -18,6 +18,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 
 import { SidebarComponent } from './components/index/sidebar/sidebar.component';
 import { NavbarComponent } from './components/index/navbar/navbar.component';
@@ -27,8 +29,10 @@ import { HomeComponent } from './components/index/home/home.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationComponent } from './components/index/confirmation/confirmation.component';
-import { LandingComponent } from './components/index/landing/landing.component';
 import { AboutusComponent } from './components/index/aboutus/aboutus.component';
+import { DashboardComponent } from './components/auth/dashboard/dashboard.component';
+import { AuthSideBarComponent } from './components/auth/auth-side-bar/auth-side-bar.component';
+import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +43,10 @@ import { AboutusComponent } from './components/index/aboutus/aboutus.component';
     RegisterComponent,
     HomeComponent,
     ConfirmationComponent,
-    LandingComponent,
-    AboutusComponent
+    AboutusComponent,
+    DashboardComponent,
+    AuthSideBarComponent,
+    AuthNavbarComponent
   ],
   imports: [
     FormsModule,
@@ -60,7 +66,9 @@ import { AboutusComponent } from './components/index/aboutus/aboutus.component';
     MatNativeDateModule,
     MatCardModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
