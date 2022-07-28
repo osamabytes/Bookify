@@ -117,7 +117,7 @@ export class RegisterComponent implements OnInit {
     return emailInp.hasError('email') ? 'Not a valid Email': '';
   }
 
-  Submit(){
+  SetDateToModel(){
     let finalDate = this.creditCardFormGroup.controls.expiry.value?.toDate();
 
     if(finalDate !== undefined){
@@ -127,7 +127,9 @@ export class RegisterComponent implements OnInit {
 
       this.user.expiration = (month + 1) + "/" + year;
     }
+  }
 
+  Submit(){
     console.log(this.user);
 
     this.router.navigate(['confirm']);

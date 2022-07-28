@@ -122,7 +122,7 @@
 
             <div id="controls_2">
                 <button mat-raised-button matStepperPrevious color="accent" style="margin-right: 7px;">Back</button>
-                <button mat-raised-button matStepperNext color="primary" style="margin-left: 7px;">Next</button>
+                <button mat-raised-button matStepperNext color="primary" (click)="SetDateToModel()" style="margin-left: 7px;">Next</button>
             </div>
         </form>
     </mat-step>
@@ -162,7 +162,7 @@
                             <h3>Card Owner: {{user.cardowner}}</h3>
                             <h3>Card Number: {{user.cardnumber}}</h3>
                             <h3>CVV: {{user.cvv}}</h3>
-                            <h3>Expiration: </h3>
+                            <h3>Expiration: {{user.expiration}}</h3>
                         </mat-expansion-panel>
                     </mat-accordion>
 
