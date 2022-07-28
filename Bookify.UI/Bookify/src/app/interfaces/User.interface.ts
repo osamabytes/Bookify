@@ -15,5 +15,5 @@ export interface User{
     cardowner: string,
     cardnumber: string,
     cvv: number,
-    expiration: Date
+    expiration: string | undefined
 }
