@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutusComponent } from './components/index/aboutus/aboutus.component';
 import { ConfirmationComponent } from './components/index/confirmation/confirmation.component';
 import { HomeComponent } from './components/index/home/home.component';
 import { LoginComponent } from './components/index/login/login.component';
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'aboutus',
+        component: AboutusComponent
       },
       {
         path: 'confirm',
