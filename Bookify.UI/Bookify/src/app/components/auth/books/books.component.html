@@ -1,8 +1,14 @@
-<a id="crate_btn" [routerLink]="['']" mat-raised-button color="primary">Add Book</a>
+<a id="crate_btn" [routerLink]="['']" mat-raised-button color="primary">
+    Add Book
+    <mat-icon class="default_maticon">add_box</mat-icon>
+</a>
 <div class="tablecontainer">
     <mat-form-field appearance="standard">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Search Data" #input>
+        <mat-label>
+            Search
+            <mat-icon class="default_maticon">search</mat-icon>
+        </mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Harry Potter" #input>
     </mat-form-field>
 
     <div class="mat-elevation-z8">
@@ -23,18 +29,24 @@
             <!-- Active Column -->
             <ng-container matColumnDef="active">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
-                <td mat-cell *matCellDef="let row"> {{row.active}} </td>
+                <td mat-cell *matCellDef="let row"> 
+                    <mat-icon style="margin-top: 20px;" *ngIf="row.active" color="primary">check_circle</mat-icon>
+                    <mat-icon style="margin-top: 20px;" *ngIf="!row.active" color="warn">block</mat-icon>
+                </td>
             </ng-container>
 
             <!-- Actions -->
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                 <mat-cell *matCellDef="let row">
-                    <a [routerLink]="['']" mat-icon-button>
+                    <button class="action_btn" mat-fab color="primary">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </button>
+                    <a class="action_btn" [routerLink]="['']" mat-fab color="accent">
                         <mat-icon>edit</mat-icon>
                     </a>
-                    <button mat-icon-button>
-                        <mat-icon color="warn">delete</mat-icon>
+                    <button class="action_btn" mat-fab color="warn">
+                        <mat-icon>delete</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>

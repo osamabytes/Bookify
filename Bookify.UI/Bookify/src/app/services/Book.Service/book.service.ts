@@ -8,7 +8,7 @@ export class BookService {
 
   constructor() { }
 
-  public AllBooks(){
+  public AllBooks(): Book[]{
     let books: Book[] = [
       {
         id: '00000000-0000-0000-0000-000000000000',
@@ -22,7 +22,7 @@ export class BookService {
         name: 'Physics Book',
         isbn: '6145155415',
         description: 'This is a Basic Physics Book',
-        active: true
+        active: false
       }
     ];
 

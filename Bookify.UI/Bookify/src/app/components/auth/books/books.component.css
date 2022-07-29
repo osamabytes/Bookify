@@ -22,3 +22,20 @@ td, th {
   right: 10%;
   top: 2%;
 }
+
+.action_btn{
+  margin: 5px 5px;
+  height: 40px;
+  width: 40px;
+}
+
+mat-icon{
+  position: relative;
+  bottom: 7px;
+}
+
+.default_maticon{
+  bottom: 0;
+}
+
+
