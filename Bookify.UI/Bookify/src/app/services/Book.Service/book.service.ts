@@ -10,11 +10,11 @@ export class BookService {
 
   public GetBookColumn(){
     return [
-      'Name',
-      'ISBN',
-      'Description',
-      'Activation',
-      'Action'
+      'id',
+      'name',
+      'isbn',
+      'description',
+      'isActived'
     ];
   }
 
