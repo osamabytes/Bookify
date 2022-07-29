@@ -5,13 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Book } from 'src/app/models/Book.model';
 import { BookService } from 'src/app/services/Book.Service/book.service';
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -19,9 +12,9 @@ export interface UserData {
 })
 
 export class BooksComponent implements AfterViewInit {
-  booksTableColumn: string[] = ['id', 'name', 'progress', 'fruit'];
+  booksTableColumn: string[] = ['name', 'isbn', 'active', 'actions'];
 
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<Book>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
@@ -30,11 +23,8 @@ export class BooksComponent implements AfterViewInit {
   books: Book[] = [];
 
   constructor(private bookService: BookService) {
-    // this.booksTableColumn = this.bookService.GetBookColumn();
-    // this.books = this.bookService.AllBooks();
-
-    const users = this.createNewUser();
-    this.dataSource = new MatTableDataSource(users);
+    this.books = this.bookService.AllBooks();
+    this.dataSource = new MatTableDataSource(this.books);
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -48,25 +38,6 @@ export class BooksComponent implements AfterViewInit {
     if(this.dataSource.paginator){
       this.dataSource.paginator.firstPage();
     }
-  }
-
-  createNewUser(): UserData[]{
-    return [{
-      id: '123',
-      name: 'Osama',
-      progress: '85%',
-      fruit: 'Mango'
-    },{
-      id: '123',
-      name: 'Osama',
-      progress: '85%',
-      fruit: 'Mango'
-    },{
-      id: '123',
-      name: 'Osama',
-      progress: '85%',
-      fruit: 'Mango'
-    }]
   }
 
 }

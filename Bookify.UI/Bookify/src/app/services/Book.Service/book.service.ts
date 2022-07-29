@@ -8,16 +8,6 @@ export class BookService {
 
   constructor() { }
 
-  public GetBookColumn(){
-    return [
-      'id',
-      'name',
-      'isbn',
-      'description',
-      'isActived'
-    ];
-  }
-
   public AllBooks(){
     let books: Book[] = [
       {
@@ -25,14 +15,14 @@ export class BookService {
         name: 'Harry Potter',
         isbn: '6145155415',
         description: 'This is a Harry Potter Book',
-        isActived: true
+        active: true
       },
       {
         id: '00000000-0000-0000-0000-000000000000',
         name: 'Physics Book',
         isbn: '6145155415',
         description: 'This is a Basic Physics Book',
-        isActived: true
+        active: true
       }
     ];
 

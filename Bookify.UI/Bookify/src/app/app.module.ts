@@ -21,6 +21,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 
 import { SidebarComponent } from './components/index/sidebar/sidebar.component';
 import { NavbarComponent } from './components/index/navbar/navbar.component';
@@ -78,7 +80,8 @@ import { CategoriesComponent } from './components/auth/categories/categories.com
     MatTableModule,
     MatSnackBarModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

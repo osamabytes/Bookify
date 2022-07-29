@@ -3,5 +3,5 @@ export interface Book{
     name: string,
     isbn: string,
     description: string,
-    isActived: boolean
+    active: boolean
 }
