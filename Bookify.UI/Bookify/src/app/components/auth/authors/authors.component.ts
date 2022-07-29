@@ -11,7 +11,7 @@ import { AuthorService } from 'src/app/services/Author.Service/author.service';
   styleUrls: ['./authors.component.css']
 })
 export class AuthorsComponent implements AfterViewInit {
-  authorTableColumn: string[] = ['name', 'description'];
+  authorTableColumn: string[] = ['name', 'description', 'actions'];
 
   dataSource: MatTableDataSource<Author>;
 

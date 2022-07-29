@@ -1,0 +1,35 @@
+.tablecontainer{
+    width: 40%;
+    margin: auto;
+  }
+  
+  table{
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    width: 20%;
+    font-size: 14px;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+  
+  .action_btn{
+    margin: 10px 5px;
+    height: 40px;
+    width: 40px;
+  }
+  
+  mat-icon{
+    position: relative;
+    bottom: 7px;
+  }
+  
+  .default_maticon{
+    bottom: 0;
+  }
+  
+  
+  
