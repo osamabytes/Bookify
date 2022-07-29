@@ -5,6 +5,10 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify", "Bookify\Bookify.csproj", "{C199A04B-B81C-4549-BA2D-90CC54C07F95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Data", "Bookify.Data\Bookify.Data.csproj", "{1715EDC4-6BB8-492F-A92E-002F7C9128E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookify.Service", "Bookify.Service\Bookify.Service.csproj", "{6D92FF00-7F8E-4B3F-9A53-78FCFC35F328}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C199A04B-B81C-4549-BA2D-90CC54C07F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C199A04B-B81C-4549-BA2D-90CC54C07F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C199A04B-B81C-4549-BA2D-90CC54C07F95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1715EDC4-6BB8-492F-A92E-002F7C9128E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1715EDC4-6BB8-492F-A92E-002F7C9128E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1715EDC4-6BB8-492F-A92E-002F7C9128E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1715EDC4-6BB8-492F-A92E-002F7C9128E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D92FF00-7F8E-4B3F-9A53-78FCFC35F328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D92FF00-7F8E-4B3F-9A53-78FCFC35F328}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D92FF00-7F8E-4B3F-9A53-78FCFC35F328}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D92FF00-7F8E-4B3F-9A53-78FCFC35F328}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
