@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -45,6 +46,7 @@ import { CategoriesComponent } from './components/auth/categories/categories.com
 import { AddBookComponent } from './components/auth/add-book/add-book.component';
 import { AddBookshopComponent } from './components/auth/add-bookshop/add-bookshop.component';
 import { AddAuthorComponent } from './components/auth/add-author/add-author.component';
+import { ViewBookModalComponent } from './components/Modals/view-book-modal/view-book-modal.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,10 @@ import { AddAuthorComponent } from './components/auth/add-author/add-author.comp
     AddBookComponent,
     AddBookshopComponent,
     AddAuthorComponent,
+    ViewBookModalComponent,
+  ],
+  entryComponents:[
+    ViewBookModalComponent
   ],
   imports: [
     FormsModule,
@@ -90,7 +96,8 @@ import { AddAuthorComponent } from './components/auth/add-author/add-author.comp
     MatSelectModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
