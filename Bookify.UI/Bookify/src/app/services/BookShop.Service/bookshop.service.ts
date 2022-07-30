@@ -26,4 +26,15 @@ export class BookshopService {
 
     return bookshops;
   }
+
+  public GetBookShop(id: string): Bookshop{
+    let bookShop: Bookshop = {
+      id: '00000000-0000-0000-0000-000000000000',
+      name: 'ABC BookShop',
+      description: 'ABC Bookshop Description',
+      address: 'House No.43, Street No.102, Farooq Street, Islampura, Lahore'
+    };
+
+    return bookShop;
+  }
 }

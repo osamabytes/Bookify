@@ -43,6 +43,7 @@ import { BookshopsComponent } from './components/auth/bookshops/bookshops.compon
 import { AuthorsComponent } from './components/auth/authors/authors.component';
 import { CategoriesComponent } from './components/auth/categories/categories.component';
 import { AddBookComponent } from './components/auth/add-book/add-book.component';
+import { AddBookshopComponent } from './components/auth/add-bookshop/add-bookshop.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { AddBookComponent } from './components/auth/add-book/add-book.component'
     AuthorsComponent,
     CategoriesComponent,
     AddBookComponent,
+    AddBookshopComponent,
   ],
   imports: [
     FormsModule,
