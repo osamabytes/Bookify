@@ -22,6 +22,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 
 import { SidebarComponent } from './components/index/sidebar/sidebar.component';
@@ -40,6 +42,7 @@ import { BooksComponent } from './components/auth/books/books.component';
 import { BookshopsComponent } from './components/auth/bookshops/bookshops.component';
 import { AuthorsComponent } from './components/auth/authors/authors.component';
 import { CategoriesComponent } from './components/auth/categories/categories.component';
+import { AddBookComponent } from './components/auth/add-book/add-book.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,7 @@ import { CategoriesComponent } from './components/auth/categories/categories.com
     BookshopsComponent,
     AuthorsComponent,
     CategoriesComponent,
+    AddBookComponent,
   ],
   imports: [
     FormsModule,
@@ -81,7 +85,8 @@ import { CategoriesComponent } from './components/auth/categories/categories.com
     MatSnackBarModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

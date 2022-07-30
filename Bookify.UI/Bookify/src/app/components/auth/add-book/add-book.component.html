@@ -1,0 +1,25 @@
+<div class="container">
+    <form #addbookform="ngForm" (submit)="AddBook(addbookform)">
+        <mat-form-field id="name" appearance="fill">
+            <mat-label>Book Name</mat-label>
+            <input type="text" matInput>
+        </mat-form-field>
+        <mat-form-field id="isbn" appearance="fill">
+            <mat-label>Book ISBN</mat-label>
+            <input type="text" matInput>
+        </mat-form-field>
+        <mat-form-field id="author_select" appearance="fill">
+            <mat-label>Select Author for Book</mat-label>
+            <mat-select>
+                <mat-option value="osama">Osama</mat-option>
+                <mat-option value="ali">Ali</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field id="description" appearance="fill">
+            <mat-label>Book Description</mat-label>
+            <textarea matInput rows="10" cols="10"></textarea>
+        </mat-form-field>
+        <mat-slide-toggle id="active_check" color="primary">Active</mat-slide-toggle>
+        <button id="submitbtn" mat-raised-button color="primary">Submit</button>
+    </form>
+</div>
