@@ -44,6 +44,7 @@ import { AuthorsComponent } from './components/auth/authors/authors.component';
 import { CategoriesComponent } from './components/auth/categories/categories.component';
 import { AddBookComponent } from './components/auth/add-book/add-book.component';
 import { AddBookshopComponent } from './components/auth/add-bookshop/add-bookshop.component';
+import { AddAuthorComponent } from './components/auth/add-author/add-author.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AddBookshopComponent } from './components/auth/add-bookshop/add-booksho
     CategoriesComponent,
     AddBookComponent,
     AddBookshopComponent,
+    AddAuthorComponent,
   ],
   imports: [
     FormsModule,

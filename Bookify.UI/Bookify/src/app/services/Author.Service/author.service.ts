@@ -24,4 +24,14 @@ export class AuthorService {
 
     return authors;
   }
+
+  public GetAuthor(id: string): Author{
+    let author: Author = {
+      id: '00000000-0000-0000-0000-000000000000',
+      name: 'Osama Ahmad',
+      description: 'Author Specialized for writing tech books'
+    };
+
+    return author;
+  }
 }
