@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/models/Category.model';
 import { CategoryService } from 'src/app/services/Category.Service/category.service';
+import { ViewCategoryModalComponent } from '../../Modals/view-category-modal/view-category-modal.component';
 
 @Component({
   selector: 'app-categories',
@@ -20,7 +22,7 @@ export class CategoriesComponent implements AfterViewInit {
 
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService) { 
+  constructor(private dialog: MatDialog, private categoryService: CategoryService) { 
     this.categories = categoryService.AllCategory();
     this.dataSource = new MatTableDataSource<Category>(this.categories);
   }
@@ -37,5 +39,14 @@ export class CategoriesComponent implements AfterViewInit {
     if(this.dataSource.paginator){
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openViewDialog(id: string){
+    let category: Category = this.categoryService.GetCategory(id);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = category;
+
+    this.dialog.open(ViewCategoryModalComponent, dialogConfig);
   }
 }

@@ -48,6 +48,8 @@ import { AddBookshopComponent } from './components/auth/add-bookshop/add-booksho
 import { AddAuthorComponent } from './components/auth/add-author/add-author.component';
 import { ViewBookModalComponent } from './components/Modals/view-book-modal/view-book-modal.component';
 import { ViewBookshopModalComponent } from './components/Modals/view-bookshop-modal/view-bookshop-modal.component';
+import { ViewAuthorModalComponent } from './components/Modals/view-author-modal/view-author-modal.component';
+import { ViewCategoryModalComponent } from './components/Modals/view-category-modal/view-category-modal.component';
 
 @NgModule({
   declarations: [
@@ -71,9 +73,14 @@ import { ViewBookshopModalComponent } from './components/Modals/view-bookshop-mo
     AddAuthorComponent,
     ViewBookModalComponent,
     ViewBookshopModalComponent,
+    ViewAuthorModalComponent,
+    ViewCategoryModalComponent,
   ],
   entryComponents:[
-    ViewBookModalComponent
+    ViewBookModalComponent,
+    ViewBookshopModalComponent,
+    ViewAuthorModalComponent,
+    ViewCategoryModalComponent
   ],
   imports: [
     FormsModule,

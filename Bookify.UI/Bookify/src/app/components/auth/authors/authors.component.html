@@ -30,7 +30,7 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                 <mat-cell *matCellDef="let row">
-                    <button class="action_btn" mat-fab color="primary">
+                    <button class="action_btn" (click)="openViewDialog(row.id)" mat-fab color="primary">
                         <mat-icon>remove_red_eye</mat-icon>
                     </button>
                     <a class="action_btn" [routerLink]="['', 'auth', 'author', row.id]" mat-fab color="accent">

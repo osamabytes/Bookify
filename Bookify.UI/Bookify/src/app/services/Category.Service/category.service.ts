@@ -22,4 +22,13 @@ export class CategoryService {
 
     return categories;
   }
+
+  public GetCategory(id: string): Category{
+    let category: Category = {
+      id: '00000000-0000-0000-0000-000000000000',
+      name: 'Horror'
+    };
+
+    return category;
+  }
 }
