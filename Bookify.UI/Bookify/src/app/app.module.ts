@@ -47,6 +47,7 @@ import { AddBookComponent } from './components/auth/add-book/add-book.component'
 import { AddBookshopComponent } from './components/auth/add-bookshop/add-bookshop.component';
 import { AddAuthorComponent } from './components/auth/add-author/add-author.component';
 import { ViewBookModalComponent } from './components/Modals/view-book-modal/view-book-modal.component';
+import { ViewBookshopModalComponent } from './components/Modals/view-bookshop-modal/view-bookshop-modal.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ViewBookModalComponent } from './components/Modals/view-book-modal/view
     AddBookshopComponent,
     AddAuthorComponent,
     ViewBookModalComponent,
+    ViewBookshopModalComponent,
   ],
   entryComponents:[
     ViewBookModalComponent

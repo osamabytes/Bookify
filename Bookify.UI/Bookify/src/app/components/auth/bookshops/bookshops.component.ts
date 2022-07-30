@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Bookshop } from 'src/app/models/Bookshop.model';
 import { BookshopService } from 'src/app/services/BookShop.Service/bookshop.service';
+import { ViewBookshopModalComponent } from '../../Modals/view-bookshop-modal/view-bookshop-modal.component';
 
 @Component({
   selector: 'app-bookshops',
@@ -20,7 +22,7 @@ export class BookshopsComponent implements AfterViewInit {
 
   bookShops: Bookshop[] = [];
 
-  constructor(private bookShopService: BookshopService) { 
+  constructor(private dialog: MatDialog, private bookShopService: BookshopService) { 
     this.bookShops = bookShopService.AllBookshops();
     this.dataSource = new MatTableDataSource<Bookshop>(this.bookShops);
   }
@@ -37,5 +39,14 @@ export class BookshopsComponent implements AfterViewInit {
     if(this.dataSource.paginator){
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openViewDialog(id: string){
+    let bookShop: Bookshop = this.bookShopService.GetBookShop(id);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = bookShop;
+
+    this.dialog.open(ViewBookshopModalComponent, dialogConfig);
   }
 }

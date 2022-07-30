@@ -42,9 +42,9 @@ export class BooksComponent implements AfterViewInit {
     }
   }
 
-  openViewDialog(){
+  openViewDialog(id: string){
 
-    let book: Book = this.bookService.GetBook('0000000000000000000000000000000000000000000');
+    let book: Book = this.bookService.GetBook(id);
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = book;
