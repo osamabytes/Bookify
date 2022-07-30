@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Book } from 'src/app/models/Book.model';
 
 @Injectable({
@@ -27,5 +28,17 @@ export class BookService {
     ];
 
     return books;
+  }
+
+  public GetBook(id: string): Book{
+    let book: Book = {
+      id: '00000000-0000-0000-0000-000000000000',
+      name: 'Physics Book',
+      isbn: '6145155415',
+      description: 'This is a Basic Physics Book',
+      active: false 
+    };
+
+    return book;
   }
 }

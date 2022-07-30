@@ -50,6 +50,10 @@ const routes: Routes = [
         component: AddBookComponent
       },
       {
+        path: 'book/:id',
+        component: AddBookComponent
+      },
+      {
         path: 'bookshops',
         component: BookshopsComponent
       },

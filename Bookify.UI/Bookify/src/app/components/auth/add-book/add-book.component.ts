@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/models/Book.model';
+import { BookService } from 'src/app/services/Book.Service/book.service';
 
 @Component({
   selector: 'app-add-book',
@@ -17,9 +19,18 @@ export class AddBookComponent implements OnInit {
     active: false
   };
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private bookService: BookService) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id');
+
+        if(id){
+          this.book = this.bookService.GetBook(id);
+        }
+      }
+    })
   }
 
   AddBook(addBookForm: NgForm){
