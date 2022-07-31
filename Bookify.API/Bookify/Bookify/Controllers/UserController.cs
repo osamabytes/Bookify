@@ -4,10 +4,10 @@ using Bookify.Data.JwtBearer;
 using Bookify.Data.Models;
 using Bookify.Service.Interfaces;
 using Bookify.Service.Interfaces.Response;
+using Bookify.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace Bookify.Controllers
 {
@@ -16,17 +16,11 @@ namespace Bookify.Controllers
     [Route("api/users")]
     public class UserController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly BookifyDbContext _bookifyDbContext;
-        private readonly IMapper _mapper;
-        private readonly JwtHandler _jwtHandler;
+        private readonly UserService _userService;
 
         public UserController(UserManager<User> userManager, BookifyDbContext bookifyDbContext, IMapper mapper, JwtHandler jwtHandler)
         {
-            _userManager = userManager;
-            _bookifyDbContext = bookifyDbContext;
-            _mapper = mapper;
-            _jwtHandler = jwtHandler;
+            _userService = new UserService(userManager, bookifyDbContext, mapper, jwtHandler);
         }
 
         [HttpPost("Register")]
@@ -35,10 +29,7 @@ namespace Bookify.Controllers
             if (userRegisterDto == null || !ModelState.IsValid)
                 return BadRequest();
 
-            userRegisterDto.Id = Guid.NewGuid();
-
-            var user = _mapper.Map<User>(userRegisterDto);
-            var result = await _userManager.CreateAsync(user, userRegisterDto.Password);
+            var result = await _userService.SignUp(userRegisterDto);
 
             if (!result.Succeeded)
             {
@@ -55,25 +46,25 @@ namespace Bookify.Controllers
             if (userLoginDto == null || !ModelState.IsValid)
                 return BadRequest();
 
-            // check if the user exists in the system 
-            var user = await _userManager.FindByNameAsync(userLoginDto.Email);
-            
-            if(user == null)
-                return Unauthorized(new AuthResponse { IsAuthSuccess = false, ErrorMessage = "Invalid User SignIn"});
+            var token = await _userService.SignIn(userLoginDto);
 
             // authorize user with email and password
-            var authUser = await _userManager.CheckPasswordAsync(user, userLoginDto.Password);
-            if (!authUser)
+            if (token == null)
                 return Unauthorized(new AuthResponse { IsAuthSuccess = false, ErrorMessage = "Invalid Authentication User"});
-
-            var sigingCredentials = _jwtHandler.GetSigningCredentials();
-            var claims = _jwtHandler.GetClaims(user);
-            var tokenOpetions = _jwtHandler.GenerateTokenOptions(sigingCredentials, claims);
-            var token = new JwtSecurityTokenHandler().WriteToken(tokenOpetions);
 
             return Ok(new AuthResponse { IsAuthSuccess = true, Token = token });
         }
 
+        [HttpGet("UserStatus")]
+        public async Task<IActionResult> GetUserStatus()
+        {
+            var useremail = User.Claims.FirstOrDefault();
+
+            if (useremail == null)
+                return Unauthorized(new GeneralResponse { Status = false, Errors = new List<string> { "User Session Timeout." } });
+
+            return Ok(new GeneralResponse { Status = true });
+        }
 
     }
 }

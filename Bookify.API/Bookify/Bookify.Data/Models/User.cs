@@ -44,5 +44,7 @@ namespace Bookify.Data.Models
         /*public List<User_Book>? User_Books { get; set; }
         public List<User_Bookshop>? User_Bookshops { get; set; }
         public List<User_Author>? User_Authors { get; set; }*/
+
+
     }
 }

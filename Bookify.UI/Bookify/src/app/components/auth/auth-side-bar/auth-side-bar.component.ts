@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GeneralResponse } from 'src/app/interfaces/Response/GeneralResponse.interface';
+import { StorageService } from 'src/app/services/Storage.Service/storage.service';
+import { UserService } from 'src/app/services/User.Service/user.service';
 
 @Component({
   selector: 'app-auth-side-bar',
@@ -8,9 +11,32 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AuthSideBarComponent implements OnInit {
 
-  constructor(public activeRoute: ActivatedRoute) { }
+  response: GeneralResponse = {
+    status: false,
+    errors: []
+  }
+
+  constructor(public activeRoute: ActivatedRoute, private storage: StorageService, private userService: UserService, private router: Router) { 
+  }
 
   ngOnInit(): void {
+    this.userService.CheckLoginStatus()
+    .subscribe({
+      next: (response: any) => {
+        this.response = response;
+      },
+      error: (err) => {
+        this.response = err.error;
+        
+        this.storage.Delete('token');
+
+        this.response.errors.forEach(element => {
+          console.log(element);
+        });
+
+        this.router.navigate(['']);
+      }
+    });
   }
 
 }

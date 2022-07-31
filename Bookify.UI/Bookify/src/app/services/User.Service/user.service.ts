@@ -22,13 +22,7 @@ export class UserService {
     return this.http.post("api/users/Login", body);
   }
 
-  public CheckLoginStatus(status: Number){
-    if(this.storage.Get('token') != null && status == 401){
-      this.storage.Delete('token');
-
-      return false;
-    }
-
-    return true;
+  public CheckLoginStatus(){
+    return this.http.get("api/users/UserStatus");
   }
 }
