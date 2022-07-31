@@ -69,3 +69,5 @@ C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\ne
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\Bookify.pdb
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\Bookify.genruntimeconfig.cache
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\ref\Bookify.dll
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\bin\Debug\net6.0\Humanizer.dll
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll

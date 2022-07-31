@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookify.Data.NavModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,8 @@ namespace Bookify.Data.Models
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
+
+        // navigation properties
+        /*public List<Book_Category>? Book_Categories { get; set; }*/
     }
 }

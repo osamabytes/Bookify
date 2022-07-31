@@ -18,6 +18,7 @@ namespace Bookify.Service.Mapper
                 .ForMember(user => user.FirstName, option => option.MapFrom(ur => ur.FirstName))
                 .ForMember(user => user.LastName, option => option.MapFrom(ur => ur.LastName))
                 .ForMember(user => user.Age, option => option.MapFrom(ur => ur.Age))
+                .ForMember(user => user.UserName, option => option.MapFrom(ur => ur.Email))
                 .ForMember(user => user.Email, option => option.MapFrom(ur => ur.Email))
                 .ForMember(user => user.AddressLine1, option => option.MapFrom(ur => ur.AddressLine1))
                 .ForMember(user => user.AddressLine2, option => option.MapFrom(ur => ur.AddressLine2))

@@ -8,10 +8,9 @@
     ".NETCoreApp,Version=v6.0": {
       "Bookify/1.0.0": {
         "dependencies": {
-          "AutoMapper": "11.0.1",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "Bookify.Data": "1.0.0",
           "Bookify.Service": "1.0.0",
+          "Microsoft.EntityFrameworkCore.Design": "6.0.7",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {
@@ -38,6 +37,14 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
             "assemblyVersion": "11.0.0.0",
             "fileVersion": "11.0.0.0"
+          }
+        }
+      },
+      "Humanizer.Core/2.8.26": {
+        "runtime": {
+          "lib/netstandard2.0/Humanizer.dll": {
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.26.1919"
           }
         }
       },
@@ -168,6 +175,18 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/6.0.7": {},
+      "Microsoft.EntityFrameworkCore.Design/6.0.7": {
+        "dependencies": {
+          "Humanizer.Core": "2.8.26",
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.7"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "assemblyVersion": "6.0.7.0",
+            "fileVersion": "6.0.722.31501"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/6.0.7": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.7",
@@ -560,6 +579,8 @@
       },
       "Bookify.Service/1.0.0": {
         "dependencies": {
+          "AutoMapper": "11.0.1",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
           "Bookify.Data": "1.0.0"
         },
         "runtime": {
@@ -587,6 +608,13 @@
       "sha512": "sha512-0asw5WxdCFh2OTi9Gv+oKyH9SzxwYQSnO8TV5Dd0GggovILzJW4UimP26JAcxc3yB5NnC5urooZ1BBs8ElpiBw==",
       "path": "automapper.extensions.microsoft.dependencyinjection/11.0.0",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512"
+    },
+    "Humanizer.Core/2.8.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
+      "path": "humanizer.core/2.8.26",
+      "hashPath": "humanizer.core.2.8.26.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.7": {
       "type": "package",
@@ -657,6 +685,13 @@
       "sha512": "sha512-VAOrGma8mRspUb/9quwIr21UZVqfWOcRQqhcYNkHBUD7woenwFTBvntiC9h2Ebtvj/BrRfezqjaHpWVvPSg4dw==",
       "path": "microsoft.entityframeworkcore.analyzers/6.0.7",
       "hashPath": "microsoft.entityframeworkcore.analyzers.6.0.7.nupkg.sha512"
+    },
+    "Microsoft.EntityFrameworkCore.Design/6.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-chshSATT8ugtqCiYryx5qDefK99o2ojyMCOIlQgetDhe83czL9Sp7s1a5MkvUyN5D4F0Vv8gXU77Wv+cplUJuw==",
+      "path": "microsoft.entityframeworkcore.design/6.0.7",
+      "hashPath": "microsoft.entityframeworkcore.design.6.0.7.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/6.0.7": {
       "type": "package",
