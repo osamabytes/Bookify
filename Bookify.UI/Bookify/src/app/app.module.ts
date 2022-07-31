@@ -50,6 +50,10 @@ import { ViewBookModalComponent } from './components/Modals/view-book-modal/view
 import { ViewBookshopModalComponent } from './components/Modals/view-bookshop-modal/view-bookshop-modal.component';
 import { ViewAuthorModalComponent } from './components/Modals/view-author-modal/view-author-modal.component';
 import { ViewCategoryModalComponent } from './components/Modals/view-category-modal/view-category-modal.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
+import { ToastrModule } from 'ngx-toastr';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -88,6 +92,9 @@ import { ViewCategoryModalComponent } from './components/Modals/view-category-mo
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
+    NgHttpLoaderModule.forRoot(),
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
@@ -108,7 +115,13 @@ import { ViewCategoryModalComponent } from './components/Modals/view-category-mo
     MatSlideToggleModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

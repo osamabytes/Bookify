@@ -74,5 +74,6 @@ namespace Bookify.Controllers
             return Ok(new AuthResponse { IsAuthSuccess = true, Token = token });
         }
 
+
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/User.interface';
@@ -10,6 +10,8 @@ import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 
 import { MatDatepicker } from '@angular/material/datepicker';
+import { UserService } from 'src/app/services/User.Service/user.service';
+import { RegisterResponse } from 'src/app/interfaces/Response/RegisterResponse.interface';
 
 const moment = _rollupMoment || _moment;
 export const CardExpirationDateFormat = {
@@ -61,23 +63,28 @@ export class RegisterComponent implements OnInit {
 
   user: User = {
     id: "00000000-0000-0000-0000-000000000000",
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     age: 0,
     email: '',
     password: '',
-    confirmpassword: '',
-    addressline1: '',
-    addressline2: '',
+    confirmPassword: '',
+    addressLine1: '',
+    addressLine2: '',
     state: '',
     city: '',
     country: '',
-    zipcode: '',
-    cardowner: '',
-    cardnumber: '',
-    cvv: 0,
+    zipCode: '',
+    cardOwner: '',
+    creditCardNumber: '',
+    cvv: '',
     expiration: ''
   };
+
+  registerResponse: RegisterResponse = {
+    isSuccessfulRegister: false,
+    errors: []
+  }
 
   generalFormGroup = this._formBuilder.group({
     firstname: ['', Validators.required],
@@ -107,7 +114,7 @@ export class RegisterComponent implements OnInit {
   userInfoFormGroup = this._formBuilder.group({
   });
 
-  constructor(private _formBuilder: FormBuilder, private router: Router) { }
+  constructor(private _formBuilder: FormBuilder, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -130,9 +137,41 @@ export class RegisterComponent implements OnInit {
   }
 
   Submit(){
-    console.log(this.user);
 
-    this.router.navigate(['confirm']);
+    this.userService.Register(this.user)
+    .subscribe({
+      next: (response: any) => {
+        this.registerResponse = response;
+        
+        if(this.registerResponse.isSuccessfulRegister){
+          console.log("SignUp Successful");
+          this.router.navigate(['confirm']);
+        }
+      },
+      error: (err) => {
+        var error = err.error;
+
+        if(error.hasOwnProperty('errors')){
+          this.registerResponse = error;
+
+          if(this.registerResponse.errors.length > 0){
+            this.registerResponse.errors.forEach(message => {
+              console.log(message);
+            });
+          }else{
+            // validation errors
+            for (var er in error.errors){
+              let errorSet = error.errors[er];
+  
+              errorSet.forEach((message: string) => {
+                console.log(message);
+              });
+            }
+          }
+        }
+      }
+    });
+
   }
 
 }

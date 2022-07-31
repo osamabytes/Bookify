@@ -6,12 +6,12 @@
             <!-- First Name -->
             <mat-form-field id="firstname_input" appearance="fill">
                 <mat-label>Enter First Name</mat-label>
-                <input matInput placeholder="First Name" id="firstname" name="firstname" [(ngModel)]="user.firstname" formControlName="firstname" required>
+                <input matInput placeholder="First Name" id="firstname" name="firstname" [(ngModel)]="user.firstName" formControlName="firstname" required>
             </mat-form-field>
             <!-- Last name -->
             <mat-form-field id="lastname_input" appearance="fill">
                 <mat-label>Enter Last Name</mat-label>
-                <input matInput placeholder="Last Name" id="lastname" name="lastname" [(ngModel)]="user.lastname" formControlName="lastname">
+                <input matInput placeholder="Last Name" id="lastname" name="lastname" [(ngModel)]="user.lastName" formControlName="lastname">
             </mat-form-field>
             <br>
             <!-- Age -->
@@ -40,7 +40,7 @@
             <mat-form-field id="confirm_pass_input" appearance="fill">
                 <mat-label>Confirm Your Password</mat-label>
                 <input matInput placeholder="Confirm Password" [type]="hideConfirmPassword ? 'password': 'text'" formControlName="confirmpassword" 
-                    id="confirmpassword" name="confirmpassword" [(ngModel)]="user.confirmpassword">
+                    id="confirmpassword" name="confirmpassword" [(ngModel)]="user.confirmPassword">
                 <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="hideConfirmPassword">
                     <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
@@ -58,12 +58,12 @@
             <!-- Address Line 1 -->
             <mat-form-field id="address_line_1_input" appearance="fill">
                 <mat-label>Enter Address Line 1</mat-label>
-                <input matInput placeholder="Address Line 1" id="addrline1" name="addrline1" [(ngModel)]="user.addressline1" formControlName="addressline1">
+                <input matInput placeholder="Address Line 1" id="addrline1" name="addrline1" [(ngModel)]="user.addressLine1" formControlName="addressline1">
             </mat-form-field>
             <!-- Address Line 1 -->
             <mat-form-field id="address_line_2_input" appearance="fill">
                 <mat-label>Enter Address Line 2</mat-label>
-                <input matInput placeholder="Address Line 2" id="addrline2" name="addrline2" [(ngModel)]="user.addressline2" formControlName="addressline2">
+                <input matInput placeholder="Address Line 2" id="addrline2" name="addrline2" [(ngModel)]="user.addressLine2" formControlName="addressline2">
             </mat-form-field>
             <!-- State -->
             <mat-form-field id="state_input" appearance="fill">
@@ -83,7 +83,7 @@
             <!-- Zip Code -->
             <mat-form-field id="zipcode_input" appearance="fill">
                 <mat-label>Enter Zip Code</mat-label>
-                <input type="number" matInput placeholder="Zip Code" id="zipcode" name="zipcode" [(ngModel)]="user.zipcode" formControlName="zipcode">
+                <input type="text" matInput placeholder="Zip Code" id="zipcode" name="zipcode" [(ngModel)]="user.zipCode" formControlName="zipcode">
             </mat-form-field>
             <div id="controls_2">
                 <button mat-raised-button matStepperPrevious color="accent" style="margin-right: 7px;">Back</button>
@@ -99,17 +99,17 @@
             <!-- Owner -->
             <mat-form-field id="owner_input" appearance="fill">
                 <mat-label>Owner</mat-label>
-                <input matInput placeholder="Enter Owner Name" id="owner" name="owner" [(ngModel)]="user.cardowner" formControlName="owner">
+                <input matInput placeholder="Enter Owner Name" id="owner" name="owner" [(ngModel)]="user.cardOwner" formControlName="owner">
             </mat-form-field>
             <!-- credit card number -->
             <mat-form-field id="ccn_input" appearance="fill">
                 <mat-label>Credit Card Number</mat-label>
-                <input matInput placeholder="Enter Credit Card Number" id="cardnum" name="cardnum" [(ngModel)]="user.cardnumber" formControlName="ccn">
+                <input matInput placeholder="Enter Credit Card Number" id="cardnum" name="cardnum" [(ngModel)]="user.creditCardNumber" formControlName="ccn">
             </mat-form-field>
             <!-- CVV -->
             <mat-form-field id="cvv_input" appearance="fill">
                 <mat-label>Enter CVV</mat-label>
-                <input type="number" matInput placeholder="CVV Code" id="cvv" name="cvv" [(ngModel)]="user.cvv" formControlName="cvv">
+                <input type="text" matInput placeholder="CVV Code" id="cvv" name="cvv" [(ngModel)]="user.cvv" formControlName="cvv">
             </mat-form-field>
             <!-- Expiry Date -->
             <mat-form-field id="expiry_input" appearance="fill">
@@ -132,7 +132,7 @@
         <form style="width: 80%;" [formGroup]="userInfoFormGroup">
             <ng-template matStepLabel>Your Information</ng-template>
             <mat-card>
-                <mat-card-title>{{user.firstname}} {{user.lastname}}</mat-card-title>
+                <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
                 <mat-card-subtitle>{{user.email}}</mat-card-subtitle>
                 <mat-card-subtitle *ngIf="user.age > 0">Age: {{user.age}}</mat-card-subtitle>
                 <mat-card-content>
@@ -145,12 +145,12 @@
                                     <h2>Address Infomation</h2>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <h3>Address Line 1: {{user.addressline1}}</h3>
-                            <h3 *ngIf="user.addressline2.length > 0">Address Line 2: {{user.addressline2}}</h3>
+                            <h3>Address Line 1: {{user.addressLine1}}</h3>
+                            <h3 *ngIf="user.addressLine2.length > 0">Address Line 2: {{user.addressLine2}}</h3>
                             <h3>State: {{user.state}}</h3>
                             <h3>City: {{user.city}}</h3>
                             <h3>Country: {{user.country}}</h3>
-                            <h3>Zip Code: {{user.zipcode}}</h3>
+                            <h3>Zip Code: {{user.zipCode}}</h3>
                         </mat-expansion-panel>
                         <!-- Credit Card  -->
                         <mat-expansion-panel>
@@ -159,8 +159,8 @@
                                     <h2>Credit Card Infomation</h2>
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <h3>Card Owner: {{user.cardowner}}</h3>
-                            <h3>Card Number: {{user.cardnumber}}</h3>
+                            <h3>Card Owner: {{user.cardOwner}}</h3>
+                            <h3>Card Number: {{user.creditCardNumber}}</h3>
                             <h3>CVV: {{user.cvv}}</h3>
                             <h3>Expiration: {{user.expiration}}</h3>
                         </mat-expansion-panel>
