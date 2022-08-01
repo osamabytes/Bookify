@@ -19,8 +19,8 @@ form{
     margin: 0 4px;
 }
 
-#author_select{
-    width: 50%;
+#author_select, #categories_select{
+    width: 42%;
     margin: 0 4px;
 }
 

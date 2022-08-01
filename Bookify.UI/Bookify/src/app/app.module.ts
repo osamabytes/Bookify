@@ -54,6 +54,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
@@ -96,6 +97,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     HttpClientModule,
     ToastrModule.forRoot(),
     NgHttpLoaderModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,

@@ -10,8 +10,8 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  public AllCategory(){
-    return this.http.get("api/Category");
+  public AllCategory(): Observable<Category[]>{
+    return this.http.get<Category[]>("api/Category");
   }
 
   public GetCategory(id: string){

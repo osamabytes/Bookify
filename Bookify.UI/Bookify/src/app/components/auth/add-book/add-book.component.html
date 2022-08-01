@@ -10,9 +10,14 @@
         </mat-form-field>
         <mat-form-field id="author_select" appearance="fill">
             <mat-label>Select Author for Book</mat-label>
-            <mat-select>
-                <mat-option value="osama">Osama</mat-option>
-                <mat-option value="ali">Ali</mat-option>
+            <mat-select >
+                <mat-option *ngFor="let author of authors" [value]="author.id" (click)="OnAuthorSelection(author.id)">{{author.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field id="categories_select" appearance="fill">
+            <mat-label>Select Categories for Book</mat-label>
+            <mat-select [multiple]="true">
+                <mat-option [value]="category.id" *ngFor="let category of categories" (click)="OnCategorySelection(category.id)">{{category.name}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field id="description" appearance="fill">
