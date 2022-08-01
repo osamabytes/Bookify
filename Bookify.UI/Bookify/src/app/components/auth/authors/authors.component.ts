@@ -15,21 +15,30 @@ import { ViewAuthorModalComponent } from '../../Modals/view-author-modal/view-au
 export class AuthorsComponent implements AfterViewInit {
   authorTableColumn: string[] = ['name', 'description', 'actions'];
 
-  dataSource: MatTableDataSource<Author>;
+  dataSource: MatTableDataSource<Author> = new MatTableDataSource;
 
   authors: Author[] = [];
 
-  constructor(private dialog: MatDialog, private authorService: AuthorService) { 
-    this.authors = this.authorService.AllAuthors();
-    this.dataSource = new MatTableDataSource<Author>(this.authors);
+  constructor(private dialog: MatDialog, private authorService: AuthorService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
   
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;    
+    this.authorService.AllAuthors()
+    .subscribe({
+      next: (authors) => {
+        this.authors = authors;
+        this.dataSource = new MatTableDataSource<Author>(this.authors);
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   applyFilter(event: Event){
@@ -42,12 +51,43 @@ export class AuthorsComponent implements AfterViewInit {
   }
 
   openViewDialog(id: string){
-    let author: Author = this.authorService.GetAuthor(id);
 
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = author;
+    this.authorService.GetAuthor(id)
+    .subscribe({
+      next: (author) => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = author;
 
-    this.dialog.open(ViewAuthorModalComponent, dialogConfig);
+        this.dialog.open(ViewAuthorModalComponent, dialogConfig);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  DeleteAuthor(id: string){
+    this.authorService.Delete(id)
+    .subscribe({
+      next: (response: any) => {
+        console.log("Author Deleted Successfully");
+
+        for(var i=0; i < this.authors.length; i++){
+          let authorObj = this.authors[i];
+
+          if(authorObj.id === id){
+            this.authors.splice(i, 1);
+          }
+
+          this.dataSource.data = this.authors;
+        }
+      },
+      error: (err) => {
+        if(err.status == 400){
+          console.log("Server Error");
+        }
+      }
+    })
   }
 
 }

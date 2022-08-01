@@ -36,7 +36,7 @@
                     <a class="action_btn" [routerLink]="['', 'auth', 'author', row.id]" mat-fab color="accent">
                         <mat-icon>edit</mat-icon>
                     </a>
-                    <button class="action_btn" mat-fab color="warn">
+                    <button class="action_btn" (click)="DeleteAuthor(row.id)" mat-fab color="warn">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-cell>

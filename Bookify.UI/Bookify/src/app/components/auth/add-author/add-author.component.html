@@ -3,6 +3,7 @@
         <mat-form-field id="name" appearance="fill">
             <mat-label>Author Name</mat-label>
             <input type="text" id="name" name="name" [(ngModel)]="author.name" matInput>
+            <mat-error *ngIf="authorName.invalid">{{getAuthorNameError()}}</mat-error>
         </mat-form-field>
         <mat-form-field id="description" appearance="fill">
             <mat-label>Author Description</mat-label>

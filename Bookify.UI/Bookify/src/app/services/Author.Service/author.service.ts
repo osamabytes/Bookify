@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Author } from 'src/app/models/Author.model';
 
 @Injectable({
@@ -6,32 +8,25 @@ import { Author } from 'src/app/models/Author.model';
 })
 export class AuthorService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  public AllAuthors(): Author[]{
-    let authors: Author[] = [
-      {
-        id: '00000000-0000-0000-0000-000000000000',
-        name: 'Osama Ahmad',
-        description: 'Author Specialized for writing tech books'
-      },
-      {
-        id: '00000000-0000-0000-0000-000000000000',
-        name: 'Ali Raza',
-        description: 'Author Specialized for writing life physicology books'
-      }
-    ];
-
-    return authors;
+  public AllAuthors(): Observable<Author[]>{
+    return this.http.get<Author[]>("api/Author/AllUserAuthor");
   }
 
-  public GetAuthor(id: string): Author{
-    let author: Author = {
-      id: '00000000-0000-0000-0000-000000000000',
-      name: 'Osama Ahmad',
-      description: 'Author Specialized for writing tech books'
-    };
+  public Add(body: Author): Observable<Author>{
+    return this.http.post<Author>("api/Author", body);
+  }
 
-    return author;
+  public Update(body: Author): Observable<Author>{
+    return this.http.put<Author>("api/Author", body);
+  }
+
+  public Delete(id: string){
+    return this.http.delete(`api/Author/${id}`);
+  }
+
+  public GetAuthor(id: string): Observable<Author>{
+    return this.http.get<Author>(`api/Author/${id}`);
   }
 }
