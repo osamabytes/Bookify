@@ -15,7 +15,7 @@ import { ViewCategoryModalComponent } from '../../Modals/view-category-modal/vie
 export class CategoriesComponent implements AfterViewInit {
   categoriesTableColumn: string[] = ['name', 'actions'];
   
-  dataSource: MatTableDataSource<Category>;
+  dataSource: MatTableDataSource<Category> = new MatTableDataSource;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
@@ -23,13 +23,23 @@ export class CategoriesComponent implements AfterViewInit {
   categories: Category[] = [];
 
   constructor(private dialog: MatDialog, private categoryService: CategoryService) { 
-    this.categories = categoryService.AllCategory();
-    this.dataSource = new MatTableDataSource<Category>(this.categories);
   }
   
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
+    this.categoryService.AllCategory()
+    .subscribe({
+      next: (categories: any) => {
+        this.categories = categories;
+        this.dataSource = new MatTableDataSource<Category>(this.categories);
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => {0
+        console.log(err);
+      }
+    });
   }
 
   applyFilter(event: Event){
@@ -42,11 +52,17 @@ export class CategoriesComponent implements AfterViewInit {
   }
 
   openViewDialog(id: string){
-    let category: Category = this.categoryService.GetCategory(id);
+    this.categoryService.GetCategory(id)
+    .subscribe({
+      next: (category) => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = category;
 
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = category;
-
-    this.dialog.open(ViewCategoryModalComponent, dialogConfig);
+        this.dialog.open(ViewCategoryModalComponent, dialogConfig);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 }

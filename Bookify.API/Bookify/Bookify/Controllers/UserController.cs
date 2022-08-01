@@ -56,7 +56,7 @@ namespace Bookify.Controllers
         }
 
         [HttpGet("UserStatus")]
-        public async Task<IActionResult> GetUserStatus()
+        public IActionResult GetUserStatus()
         {
             var useremail = User.Claims.FirstOrDefault();
 

@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/Category.model';
 
 @Injectable({
@@ -6,29 +8,13 @@ import { Category } from 'src/app/models/Category.model';
 })
 export class CategoryService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  public AllCategory(): Category[]{
-    let categories: Category[] = [
-      {
-        id: '00000000-0000-0000-0000-000000000000',
-        name: 'Horror'
-      },
-      {
-        id: '00000000-0000-0000-0000-000000000000',
-        name: 'Technology'
-      }
-    ];
-
-    return categories;
+  public AllCategory(){
+    return this.http.get("api/Category");
   }
 
-  public GetCategory(id: string): Category{
-    let category: Category = {
-      id: '00000000-0000-0000-0000-000000000000',
-      name: 'Horror'
-    };
-
-    return category;
+  public GetCategory(id: string){
+    return this.http.get(`api/category/${id}`);
   }
 }
