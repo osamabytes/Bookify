@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Book_BookShop } from 'src/app/interfaces/Book_BookShopInterface.interface';
+import { Book } from 'src/app/models/Book.model';
 import { Bookshop } from 'src/app/models/Bookshop.model';
 
 @Injectable({
@@ -41,5 +42,9 @@ export class BookshopService {
 
   public UpdateBooktoBookShop(body: Book_BookShop): Observable<Bookshop>{
     return this.http.put<Bookshop>("api/Bookshop/UpdateBookToBookShop", body);
+  }
+
+  public GetBooksByBookShip(id: string): Observable<Book[]>{
+    return this.http.get<Book[]>(`api/Bookshop/GetBooksByBookshop/${id}`);
   }
 }

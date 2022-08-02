@@ -164,5 +164,19 @@ namespace Bookify.Data.CRUD
 
             return null;
         }
+
+        public async Task<List<Book>> SelectAllByBookId(Guid BookShopId)
+        {
+            var book_bookShops = await _bookifyDbContext.Book_BookShop.Where(bbs => bbs.BookshopId == BookShopId).ToListAsync();
+
+            List<Book> books = new List<Book>();
+            foreach(var book_bookshop in book_bookShops)
+            {
+                var book = await _bookifyDbContext.Book.FindAsync(book_bookshop.BookId);
+                books.Add(book);
+            }
+
+            return books;
+        }
     }
 }

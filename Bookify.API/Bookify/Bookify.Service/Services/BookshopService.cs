@@ -75,5 +75,10 @@ namespace Bookify.Service.Services
         {
             return await _bookshopCRUD.SelectBookShopById(Id);
         }
+
+        public async Task<List<Book>> GetBooksByBookshopId(Guid BookShopId)
+        {
+            return await _bookshopCRUD.SelectAllByBookId(BookShopId);
+        }
     }
 }

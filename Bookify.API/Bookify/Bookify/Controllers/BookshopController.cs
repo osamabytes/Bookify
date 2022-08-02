@@ -67,6 +67,17 @@ namespace Bookify.Controllers
             return Ok(bookShop);
         }
 
+        [HttpGet("GetBooksByBookshop/{bookShopId}")]
+        public async Task<IActionResult> GetBooksByBookShop(Guid BookshopId)
+        {
+            var books = await _bookShopService.GetBooksByBookshopId(BookshopId);
+
+            if (books == null)
+                return NotFound();
+
+            return Ok(books);
+        }
+
         [HttpGet("GetBookShopbyBook/{bookId}")]
         public async Task<IActionResult> GetBookShopByBook(Guid BookId)
         {
