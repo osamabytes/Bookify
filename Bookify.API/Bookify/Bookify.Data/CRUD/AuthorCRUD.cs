@@ -91,6 +91,13 @@ namespace Bookify.Data.CRUD
             return author;
         }
 
+        public async Task<Author> SelectAuthorByBookId(Guid BookId)
+        {
+            var authorBook = await _bookifyDbContext.Author_Book.FirstOrDefaultAsync(ba => ba.BookId == BookId);
+            var author = await SelectAuthorById(authorBook.AuthorId);
+            return author;
+        }
+
         public async Task<IEnumerable<User_Author>> SelectAuthorsByUserId(Claim userClaim)
         {
             var user = await _userManager.FindByEmailAsync(userClaim.Value);

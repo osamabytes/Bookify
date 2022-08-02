@@ -44,6 +44,17 @@ namespace Bookify.Controllers
             return Ok(authors);
         }
 
+        [HttpGet("AuthorBook/{id}")]
+        public async Task<IActionResult> GetAuthorByBookId(Guid Id)
+        {
+            var author = await _authorService.GetBookAuthors(Id);
+
+            if (author == null)
+                return NotFound();
+
+            return Ok(author);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAuthor([FromBody] Author author)
         {

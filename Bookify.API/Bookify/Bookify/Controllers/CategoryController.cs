@@ -35,5 +35,16 @@ namespace Bookify.Controllers
 
             return Ok(category);
         }
+
+        [HttpGet("AllBookCategories/{id}")]
+        public async Task<IActionResult> GetBookCategories(Guid Id)
+        {
+            var categories = await _categoryService.GetCategoriesListByBookId(Id);
+
+            if (categories == null)
+                return NotFound();
+
+            return Ok(categories);
+        }
     }
 }

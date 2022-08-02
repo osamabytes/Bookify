@@ -24,7 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 import { SidebarComponent } from './components/index/sidebar/sidebar.component';
@@ -56,6 +56,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { AddToBookShopComponent } from './components/Modals/add-to-book-shop/add-to-book-shop.component';
+import { AddBookStockComponent } from './components/Modals/add-book-stock/add-book-stock.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     ViewBookshopModalComponent,
     ViewAuthorModalComponent,
     ViewCategoryModalComponent,
+    AddToBookShopComponent,
+    AddBookStockComponent,
   ],
   entryComponents:[
     ViewBookModalComponent,
@@ -116,7 +120,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     MatPaginatorModule,
     MatSortModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   providers: [
     {

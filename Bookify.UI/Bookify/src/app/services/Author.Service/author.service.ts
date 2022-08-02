@@ -29,4 +29,8 @@ export class AuthorService {
   public GetAuthor(id: string): Observable<Author>{
     return this.http.get<Author>(`api/Author/${id}`);
   }
+
+  public GetBookAuthor(id: string): Observable<Author>{
+    return this.http.get<Author>(`api/Author/AuthorBook/${id}`);
+  }
 }

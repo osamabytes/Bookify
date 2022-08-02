@@ -1,4 +1,4 @@
-<a id="crate_btn" [routerLink]="['', 'auth', 'book']" mat-raised-button color="primary">
+<a id="crate_btn" matTooltip="Create New Book" [matTooltipPosition]="'left'" [routerLink]="['', 'auth', 'book']" mat-raised-button color="primary">
     Add Book
     <mat-icon class="default_maticon">add_box</mat-icon>
 </a>
@@ -39,13 +39,19 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                 <mat-cell *matCellDef="let row">
-                    <button (click)="openViewDialog(row.id)" class="action_btn" mat-fab color="primary">
+                    <button (click)="openBookStockDialog(row.id)" matTooltip="Add Stock" [matTooltipPosition]="'left'" class="action_btn" mat-fab>
+                        <mat-icon>library_add</mat-icon>
+                    </button>
+                    <button (click)="openBookShopDialog(row.id)" matTooltip="Select BookShop" [matTooltipPosition]="'above'" class="action_btn" mat-fab>
+                        <mat-icon>shop</mat-icon>
+                    </button>
+                    <button matTooltip="View Book" [matTooltipPosition]="'above'" (click)="openViewDialog(row.id)" class="action_btn" mat-fab color="primary">
                         <mat-icon>remove_red_eye</mat-icon>
                     </button>
-                    <a class="action_btn" [routerLink]="['', 'auth', 'book', row.id]" mat-fab color="accent">
+                    <a class="action_btn" matTooltip="Edit Book" [matTooltipPosition]="'above'" [routerLink]="['', 'auth', 'book', row.id]" mat-fab color="accent">
                         <mat-icon>edit</mat-icon>
                     </a>
-                    <button class="action_btn" mat-fab color="warn">
+                    <button (click)="DeleteBook(row.id)" matTooltip="Delete Book" [matTooltipPosition]="'above'" class="action_btn" mat-fab color="warn">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-cell>

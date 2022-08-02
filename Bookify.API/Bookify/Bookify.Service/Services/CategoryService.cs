@@ -27,5 +27,10 @@ namespace Bookify.Service.Services
         {
             return await _categoryCrud.SelectById(uid);
         }
+
+        public async Task<List<Category>> GetCategoriesListByBookId(Guid Id)
+        {
+            return await _categoryCrud.SelectCategoriesByBookId(Id);
+        } 
     }
 }

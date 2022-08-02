@@ -87,7 +87,7 @@ export class AuthorsComponent implements AfterViewInit {
           console.log("Server Error");
         }
       }
-    })
+    });
   }
 
 }

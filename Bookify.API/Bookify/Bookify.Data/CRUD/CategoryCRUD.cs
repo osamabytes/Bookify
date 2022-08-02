@@ -29,5 +29,21 @@ namespace Bookify.Data.CRUD
             var category = await _bookifyDbContext.Category.FirstOrDefaultAsync(c => c.Id == Id);
             return category;
         }
+
+        public async Task<List<Category>> SelectCategoriesByBookId(Guid bookId)
+        {
+            var categories = new List<Category>();
+
+            var book_categories = await _bookifyDbContext.Book_Category.Where(bc => bc.BookId == bookId).ToListAsync();
+            
+            foreach(var bookCategory in book_categories)
+            {
+                var category = await SelectById(bookCategory.CategoryId);
+
+                categories.Add(category);
+            }
+
+            return categories;
+        }
     }
 }

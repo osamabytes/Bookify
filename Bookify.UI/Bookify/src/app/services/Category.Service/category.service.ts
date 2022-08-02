@@ -17,4 +17,8 @@ export class CategoryService {
   public GetCategory(id: string){
     return this.http.get(`api/category/${id}`);
   }
+
+  public GetBookCategoires(id: string): Observable<Category[]>{
+    return this.http.get<Category[]>(`api/Category/AllBookCategories/${id}`);
+  }
 }
