@@ -1,1 +1,16 @@
-<p>add-to-book-shop works!</p>
+<h2 mat-dialog-title>Select BookShop</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>{{bookShop.name}}</h3>
+
+    <h3>Select Bookshop</h3>
+    <mat-form-field appearance="fill">
+        <mat-label>Bookshop</mat-label>
+        <mat-select [(value)]="bookShop.id">
+          <mat-option *ngFor="let bookshop of bookShops" [value]="bookshop.id" (click)="OnBookShopSelect(bookshop.id)">{{bookshop.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="SubmitBookToBookShop()">Submit</button>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

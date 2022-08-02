@@ -1,5 +1,6 @@
 ﻿using Bookify.Data.Data;
 using Bookify.Data.Models;
+using Bookify.Service.Interfaces;
 using Bookify.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -42,6 +43,39 @@ namespace Bookify.Controllers
                 return NotFound();
 
             return Ok(bookShops);
+        }
+
+        [HttpPut("AddBookToBookShop")]
+        public async Task<IActionResult> AddBookToBookShop([FromBody] Book_BookShopInterface bookBookInterface)
+        {
+            var bookShop = await _bookShopService.SetBookToBookShops(bookBookInterface);
+
+            if (bookBookInterface == null)
+                return BadRequest();
+
+            return Ok(bookShop);
+        }
+
+        [HttpPut("UpdateBookToBookShop")]
+        public async Task<IActionResult> UpdateBookToBookShop([FromBody] Book_BookShopInterface bookBookInterface)
+        {
+            var bookShop = await _bookShopService.UpdateBookToBookshop(bookBookInterface);
+
+            if (bookBookInterface == null)
+                return BadRequest();
+
+            return Ok(bookShop);
+        }
+
+        [HttpGet("GetBookShopbyBook/{bookId}")]
+        public async Task<IActionResult> GetBookShopByBook(Guid BookId)
+        {
+            var bookShop = await _bookShopService.GetBookShopbyBookId(BookId);
+
+            if (bookShop == null)
+                return NotFound();
+
+            return Ok(bookShop);
         }
 
         [HttpPost]

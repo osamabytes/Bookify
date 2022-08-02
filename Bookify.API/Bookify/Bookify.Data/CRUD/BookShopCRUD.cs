@@ -106,5 +106,63 @@ namespace Bookify.Data.CRUD
             return user_bookshops;
 
         }
+
+        public async Task<BookShop> InsertBookToBookShop(Guid BookId, Guid BookshopId)
+        {
+            Book_Bookshop book_Bookshop = new Book_Bookshop();
+
+            var bookShop = new BookShop();
+
+            try
+            {
+                book_Bookshop.Id = Guid.NewGuid();
+
+                book_Bookshop.BookId = BookId;
+                book_Bookshop.BookshopId = BookshopId;
+
+                await _bookifyDbContext.Book_BookShop.AddAsync(book_Bookshop);
+                await _bookifyDbContext.SaveChangesAsync();
+
+                bookShop = await _bookifyDbContext.BookShop.FindAsync(BookshopId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return bookShop;
+        }
+
+        public async Task<BookShop> UpdateBookToBookShop(Guid BookId, Guid BookShopId)
+        {
+            try
+            {
+                var book_BookShop = await _bookifyDbContext.Book_BookShop.FirstOrDefaultAsync(bbs => bbs.BookId == BookId);
+
+                book_BookShop.BookshopId = BookShopId;
+
+                _bookifyDbContext.Book_BookShop.Update(book_BookShop);
+                await _bookifyDbContext.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            var bookShop = await _bookifyDbContext.BookShop.FindAsync(BookShopId);
+            return bookShop;
+        }
+
+        public async Task<BookShop?> SelectBookShopByBookId(Guid BookId)
+        {
+            var book_BookShop = await _bookifyDbContext.Book_BookShop.FirstOrDefaultAsync(bbs => bbs.BookId == BookId);
+            if (book_BookShop != null)
+            {
+                var bookShop = await _bookifyDbContext.BookShop.FindAsync(book_BookShop.BookshopId);
+                return bookShop;
+            }
+
+            return null;
+        }
     }
 }

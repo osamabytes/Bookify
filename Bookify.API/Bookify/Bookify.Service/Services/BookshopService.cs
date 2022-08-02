@@ -1,6 +1,7 @@
 ﻿using Bookify.Data.CRUD;
 using Bookify.Data.Data;
 using Bookify.Data.Models;
+using Bookify.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,27 @@ namespace Bookify.Service.Services
             }
 
             return bookShops;
+        }
+
+        public async Task<BookShop> SetBookToBookShops(Book_BookShopInterface bookBookShop)
+        {
+            Guid BookId = bookBookShop.BookId;
+            Guid BookShopId = bookBookShop.BookshopId;
+
+            return await _bookshopCRUD.InsertBookToBookShop(BookId, BookShopId);
+        }
+
+        public async Task<BookShop> UpdateBookToBookshop(Book_BookShopInterface bookBookShop)
+        {
+            Guid BookId = bookBookShop.BookId;
+            Guid BookShopId = bookBookShop.BookshopId;
+
+            return await _bookshopCRUD.UpdateBookToBookShop(BookId, BookShopId);
+        }
+
+        public async Task<BookShop> GetBookShopbyBookId(Guid bookId)
+        {
+            return await _bookshopCRUD.SelectBookShopByBookId(bookId);
         }
 
         public async Task<BookShop> GetSingleBookshop(Guid Id)
