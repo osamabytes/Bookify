@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author } from 'src/app/models/Author.model';
+import { AppService } from 'src/app/services/app.service';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
@@ -20,9 +21,13 @@ export class AddAuthorComponent implements OnInit {
 
   authorName = new FormControl('', [Validators.required]);
 
-  constructor(private activatedRoute: ActivatedRoute, private toastService: ToastService, private authorService: AuthorService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private toastService: ToastService, private appService: AppService, 
+    private authorService: AuthorService, private router: Router) { }
 
   ngOnInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
@@ -52,6 +57,9 @@ export class AddAuthorComponent implements OnInit {
   }
 
   AddAuthor(addauthorform: NgForm){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+    
     if(this.author.id !== '' && this.author.id !== '00000000-0000-0000-0000-000000000000'){
       this.authorService.Update(this.author)
       .subscribe({

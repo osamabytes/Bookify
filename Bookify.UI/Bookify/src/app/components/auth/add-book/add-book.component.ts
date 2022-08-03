@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookInterface } from 'src/app/interfaces/Book.interface';
 import { Author } from 'src/app/models/Author.model';
 import { Category } from 'src/app/models/Category.model';
+import { AppService } from 'src/app/services/app.service';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
 import { BookService } from 'src/app/services/Book.Service/book.service';
 import { CategoryService } from 'src/app/services/Category.Service/category.service';
@@ -38,77 +39,81 @@ export class AddBookComponent implements OnInit {
   };
 
   constructor(private route: ActivatedRoute, private router: Router, private bookService: BookService, 
-    private authorService: AuthorService, private categoryService: CategoryService, private toastService: ToastService) { }
+    private authorService: AuthorService, private categoryService: CategoryService, 
+    private toastService: ToastService, private appService: AppService) { }
 
-    ngOnInit(): void {
-      this.route.paramMap.subscribe({
-        next: (params) => {
-          const id = params.get('id');
+  ngOnInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
 
-          if(id){
-            // Get Book
-            this.bookService.GetBook(id)
-            .subscribe({
-              next: (book) => {
-                this.bookInterface.book = book;
-              },
-              error: (error) => {
-                console.log(error);
-              }
-            });
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id');
 
-            // Get Author
-            this.authorService.GetBookAuthor(id)
-            .subscribe({
-              next: (author) => {
-                this.bookInterface.author = author;
-              },
-              error: (error) => {
-                console.log(error);
-              }
-            });
+        if(id){
+          // Get Book
+          this.bookService.GetBook(id)
+          .subscribe({
+            next: (book) => {
+              this.bookInterface.book = book;
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
 
-            // Get Categories
-            this.categoryService.GetBookCategoires(id)
-            .subscribe({
-              next: (categories) => {
-                this.bookInterface.categories = categories;
+          // Get Author
+          this.authorService.GetBookAuthor(id)
+          .subscribe({
+            next: (author) => {
+              this.bookInterface.author = author;
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
 
-                this.selectedCategoriesId = []
+          // Get Categories
+          this.categoryService.GetBookCategoires(id)
+          .subscribe({
+            next: (categories) => {
+              this.bookInterface.categories = categories;
 
-                categories.forEach(element => {
-                  this.selectedCategoriesId.push(element.id);
-                });
+              this.selectedCategoriesId = []
 
-                console.log(this.selectedCategoriesId);
-              },
-              error: (error) => {
-                console.log(error);
-              }
-            });
-          }
+              categories.forEach(element => {
+                this.selectedCategoriesId.push(element.id);
+              });
+
+              console.log(this.selectedCategoriesId);
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
         }
-      });
+      }
+    });
 
-      this.authorService.AllAuthors()
-      .subscribe({
-        next: (authors) => {
-          this.authors = authors;
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      });
+    this.authorService.AllAuthors()
+    .subscribe({
+      next: (authors) => {
+        this.authors = authors;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
 
-      this.categoryService.AllCategory()
-      .subscribe({
-        next: (categories) => {
-          this.categories = categories;
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      });
+    this.categoryService.AllCategory()
+    .subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
   OnAuthorSelection(AuthorId: string){
@@ -141,6 +146,9 @@ export class AddBookComponent implements OnInit {
   }
 
   AddBook(addBookForm: NgForm){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+    
     if(this.bookInterface.book.id !== '' && this.bookInterface.book.id !== '00000000-0000-0000-0000-000000000000'){
       this.bookService.UpdateBook(this.bookInterface)
       .subscribe({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AppService } from 'src/app/services/app.service';
 import { StorageService } from 'src/app/services/Storage.Service/storage.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { LogoutComponent } from '../../Modals/Confirmation/logout/logout.component';
@@ -13,9 +14,11 @@ import { LogoutComponent } from '../../Modals/Confirmation/logout/logout.compone
 export class AuthNavbarComponent implements OnInit {
 
   constructor(private storageService: StorageService, private matDialog: MatDialog, 
-    private toastService: ToastService, private router: Router) { }
+    private toastService: ToastService, private router: Router, private appService: AppService) { }
 
   ngOnInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
   }
 
   Logout(){

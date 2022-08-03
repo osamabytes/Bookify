@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Author } from 'src/app/models/Author.model';
+import { AppService } from 'src/app/services/app.service';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { DeleteComponent } from '../../Modals/Confirmation/delete/delete.component';
@@ -21,13 +22,16 @@ export class AuthorsComponent implements AfterViewInit {
 
   authors: Author[] = [];
 
-  constructor(private dialog: MatDialog, private toastService: ToastService, private authorService: AuthorService) {
+  constructor(private dialog: MatDialog, private appService: AppService, private toastService: ToastService, private authorService: AuthorService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
   
   ngAfterViewInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
+    
     this.authorService.AllAuthors()
     .subscribe({
       next: (authors) => {
@@ -53,6 +57,8 @@ export class AuthorsComponent implements AfterViewInit {
   }
 
   openViewDialog(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
 
     this.authorService.GetAuthor(id)
     .subscribe({
@@ -69,6 +75,8 @@ export class AuthorsComponent implements AfterViewInit {
   }
 
   DeleteAuthor(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
 
     let dataList: any = [{
       entity: 'Author'

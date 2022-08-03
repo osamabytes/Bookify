@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Bookshop } from 'src/app/models/Bookshop.model';
+import { AppService } from 'src/app/services/app.service';
 import { BookshopService } from 'src/app/services/BookShop.Service/bookshop.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { DeleteComponent } from '../../Modals/Confirmation/delete/delete.component';
@@ -24,9 +25,13 @@ export class BookshopsComponent implements AfterViewInit {
 
   bookShops: Bookshop[] = [];
 
-  constructor(private dialog: MatDialog, private toastService: ToastService, private bookShopService: BookshopService) {}
+  constructor(private dialog: MatDialog, private toastService: ToastService, 
+    private appService: AppService, private bookShopService: BookshopService) {}
   
   ngAfterViewInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.bookShopService.AllBookshops()
     .subscribe({
       next: (bookShops) => {
@@ -52,6 +57,9 @@ export class BookshopsComponent implements AfterViewInit {
   }
 
   openViewDialog(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.bookShopService.GetBookShop(id)
     .subscribe({
       next: (bookShop) => {
@@ -68,6 +76,9 @@ export class BookshopsComponent implements AfterViewInit {
 
 
   DeleteBookShop(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     let dataList: any = [{
       entity: 'Bookshop'
     }];

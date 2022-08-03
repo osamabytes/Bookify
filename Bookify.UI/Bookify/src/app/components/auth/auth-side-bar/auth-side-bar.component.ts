@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GeneralResponse } from 'src/app/interfaces/Response/GeneralResponse.interface';
-import { StorageService } from 'src/app/services/Storage.Service/storage.service';
-import { ToastService } from 'src/app/services/Toast.Service/toast.service';
-import { UserService } from 'src/app/services/User.Service/user.service';
+import { ActivatedRoute } from '@angular/router';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-auth-side-bar',
@@ -12,37 +9,11 @@ import { UserService } from 'src/app/services/User.Service/user.service';
 })
 export class AuthSideBarComponent implements OnInit {
 
-  response: GeneralResponse = {
-    status: false,
-    errors: []
-  }
-
-  constructor(public activeRoute: ActivatedRoute, private storage: StorageService, private toastService: ToastService,
-     private userService: UserService, private router: Router) { 
+  constructor(public activeRoute: ActivatedRoute, private appService: AppService) { 
   }
 
   ngOnInit(): void {
-    this.userService.CheckLoginStatus()
-    .subscribe({
-      next: (response: any) => {
-        this.response = response;
-      },
-      error: (err) => {
-        this.response = err.error;
-
-        let errorMessage: string[] = [];
-        
-        this.storage.Delete('token');
-
-        this.response.errors.forEach(element => {
-          errorMessage.push(element);
-        });
-
-        this.toastService.openToast(errorMessage, "danger");
-
-        this.router.navigate(['']);
-      }
-    });
+    this.appService.CheckUserStatus();
   }
 
 }

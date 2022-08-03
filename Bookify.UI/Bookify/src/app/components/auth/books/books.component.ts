@@ -11,6 +11,7 @@ import { AddBookComponent } from '../add-book/add-book.component';
 import { AddBookStockComponent } from '../../Modals/add-book-stock/add-book-stock.component';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { DeleteComponent } from '../../Modals/Confirmation/delete/delete.component';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-books',
@@ -28,10 +29,14 @@ export class BooksComponent implements AfterViewInit {
 
   books: Book[] = [];
 
-  constructor(private dialog: MatDialog, private toastService: ToastService, private bookService: BookService) {
+  constructor(private dialog: MatDialog, private appService: AppService, private toastService: ToastService, 
+    private bookService: BookService) {
   }
 
   ngAfterViewInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.bookService.AllBooks()
     .subscribe({
       next: (books) => {
@@ -57,6 +62,8 @@ export class BooksComponent implements AfterViewInit {
   }
 
   openViewDialog(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
 
     this.bookService.GetBook(id)
     .subscribe({
@@ -73,6 +80,9 @@ export class BooksComponent implements AfterViewInit {
   }
 
   openBookShopDialog(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.bookService.GetBook(id)
     .subscribe({
       next: (book) => {
@@ -88,6 +98,9 @@ export class BooksComponent implements AfterViewInit {
   }
 
   openBookStockDialog(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.bookService.GetBook(id)
     .subscribe({
       next: (book) => {
@@ -103,6 +116,9 @@ export class BooksComponent implements AfterViewInit {
   }
 
   DeleteBook(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+    
     let dataList: any = [{
       entity: 'Book'
     }];

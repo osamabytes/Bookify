@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthResponse } from 'src/app/interfaces/Response/AuthResponse.interface';
+import { GeneralResponse } from 'src/app/interfaces/Response/GeneralResponse.interface';
 import { RegisterResponse } from 'src/app/interfaces/Response/RegisterResponse.interface';
 import { User } from 'src/app/interfaces/User.interface';
 import { UserLogin } from 'src/app/interfaces/UserLogin.interface';
@@ -22,7 +23,7 @@ export class UserService {
     return this.http.post("api/users/Login", body);
   }
 
-  public CheckLoginStatus(){
-    return this.http.get("api/users/UserStatus");
+  public CheckLoginStatus(): Observable<GeneralResponse>{
+    return this.http.get<GeneralResponse>("api/users/UserStatus");
   }
 }

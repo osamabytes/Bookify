@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from 'src/app/models/Category.model';
+import { AppService } from 'src/app/services/app.service';
 import { CategoryService } from 'src/app/services/Category.Service/category.service';
 import { ViewCategoryModalComponent } from '../../Modals/view-category-modal/view-category-modal.component';
 
@@ -22,10 +23,12 @@ export class CategoriesComponent implements AfterViewInit {
 
   categories: Category[] = [];
 
-  constructor(private dialog: MatDialog, private categoryService: CategoryService) { 
+  constructor(private dialog: MatDialog, private appService: AppService, private categoryService: CategoryService) { 
   }
   
   ngAfterViewInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
     
     this.categoryService.AllCategory()
     .subscribe({
@@ -52,6 +55,9 @@ export class CategoriesComponent implements AfterViewInit {
   }
 
   openViewDialog(id: string){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.categoryService.GetCategory(id)
     .subscribe({
       next: (category) => {

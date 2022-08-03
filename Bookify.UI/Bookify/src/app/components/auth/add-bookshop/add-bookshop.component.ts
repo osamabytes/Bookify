@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Bookshop } from 'src/app/models/Bookshop.model';
+import { AppService } from 'src/app/services/app.service';
 import { BookshopService } from 'src/app/services/BookShop.Service/bookshop.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
@@ -20,9 +21,12 @@ export class AddBookshopComponent implements OnInit {
   };
 
   constructor(private activatedRoute: ActivatedRoute, private toastService: ToastService,
-     private router: Router, private bookShopService: BookshopService) { }
+     private router: Router, private bookShopService: BookshopService, private appService: AppService) { }
 
   ngOnInit(): void {
+    // Check Login Status
+    this.appService.CheckUserStatus();
+
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
@@ -43,6 +47,9 @@ export class AddBookshopComponent implements OnInit {
   }
 
   AddBookShop(addBookShopForm: NgForm){
+    // Check Login Status
+    this.appService.CheckUserStatus();
+    
     if(this.bookShop.id !== '' && this.bookShop.id !== '00000000-0000-0000-0000-000000000000'){
       this.bookShopService.UpdateBookShop(this.bookShop)
       .subscribe({
