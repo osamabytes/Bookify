@@ -58,11 +58,13 @@ export class AddAuthorComponent implements OnInit {
         next: (author) => {
           addauthorform.reset();
 
-          this.toastService.openToast(2, "Author Updated Successfully", "success");
+          this.toastService.openToast(["Author Updated Successfully"], "success");
 
           this.router.navigate(['', 'auth', 'authors']);
         },
         error: (err) => {
+          let errorMessage: string[] = [];
+
           if(err.error.hasOwnProperty('errors')){
             var errors = err.error.errors;
 
@@ -70,14 +72,16 @@ export class AddAuthorComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                this.toastService.openToast(3, item, "danger");
+                errorMessage.push(item);
               });
             }
           }
 
           if(err.status === 400){
-            this.toastService.openToast(3, "Bad Request", "danger");
+            errorMessage.push("Bad Request");
           }
+
+          this.toastService.openToast(errorMessage, "danger");
         }
       })
     }else{
@@ -86,12 +90,14 @@ export class AddAuthorComponent implements OnInit {
         next: (author) => {
           addauthorform.reset();
 
-          this.toastService.openToast(2, "Author Added Successfully", "success");
+          this.toastService.openToast(["Author Added Successfully"], "success");
 
           this.router.navigate(['', 'auth', 'authors']);
         },
         error: (err) => {
           console.log(err);
+
+          let errorMessage: string[] = [];
 
           if(err.error.hasOwnProperty('errors')){
             var errors = err.error.errors;
@@ -100,14 +106,16 @@ export class AddAuthorComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                this.toastService.openToast(3, item, "danger");
+                errorMessage.push(item);
               });
             }
           }
 
           if(err.status === 400){
-            this.toastService.openToast(3, "Bad Request", "danger");
+            errorMessage.push("Bad Request");
           }
+
+          this.toastService.openToast(errorMessage, "danger");
         }
       });
     }

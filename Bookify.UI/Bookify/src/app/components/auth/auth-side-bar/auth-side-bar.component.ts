@@ -29,12 +29,16 @@ export class AuthSideBarComponent implements OnInit {
       },
       error: (err) => {
         this.response = err.error;
+
+        let errorMessage: string[] = [];
         
         this.storage.Delete('token');
 
         this.response.errors.forEach(element => {
-          this.toastService.openToast(2, element, "primary");
+          errorMessage.push(element);
         });
+
+        this.toastService.openToast(errorMessage, "danger");
 
         this.router.navigate(['']);
       }

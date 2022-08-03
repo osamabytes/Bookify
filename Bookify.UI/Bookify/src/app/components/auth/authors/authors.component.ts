@@ -71,7 +71,7 @@ export class AuthorsComponent implements AfterViewInit {
     this.authorService.Delete(id)
     .subscribe({
       next: (response: any) => {
-        this.toastService.openToast(2, "Author Deleted Successfully", "success");
+        this.toastService.openToast(["Author Deleted Successfully"], "success");
 
         for(var i=0; i < this.authors.length; i++){
           let authorObj = this.authors[i];
@@ -85,7 +85,7 @@ export class AuthorsComponent implements AfterViewInit {
       },
       error: (err) => {
         if(err.status == 400){
-          this.toastService.openToast(5, "Bad Request", "danger");
+          this.toastService.openToast(["Bad Request"], "danger");
         }
       }
     });

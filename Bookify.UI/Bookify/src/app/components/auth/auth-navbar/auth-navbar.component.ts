@@ -17,7 +17,7 @@ export class AuthNavbarComponent implements OnInit {
 
   Logout(){
     this.storageService.Delete('token');
-    this.toastService.openToast(3, 'Logged out Successfully', "primary");
+    this.toastService.openToast(['Logged out Successfully'], "primary");
     this.router.navigate(['']);
   }
 

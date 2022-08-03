@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
 
         this.storageService.Save('token', this.authResponse.token);
 
-        this.toastService.openToast(2, "User Login Success", "success");
+        this.toastService.openToast(["User Login Success"], "success");
 
         this.router.navigate(['auth']);
       },
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         var error = err.error;
 
         this.authResponse = error;
-        this.toastService.openToast(2, this.authResponse.errorMessage, "danger");
+        this.toastService.openToast([this.authResponse.errorMessage], "danger");
       }
     });
   }

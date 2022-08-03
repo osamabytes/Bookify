@@ -52,7 +52,7 @@ export class AddBookStockComponent implements OnInit {
         next: (stock) => {
           this.stock = stock;
 
-          this.toastService.openToast(2, "Stock Updated Successfully.", "success");
+          this.toastService.openToast(["Stock Updated Successfully."], "success");
         },
         error: (err) => {
           console.log(err);
@@ -69,7 +69,7 @@ export class AddBookStockComponent implements OnInit {
         next: (stock) => {
           this.stock = stock;
 
-          this.toastService.openToast(2, "Stock Created Successfully", "success");
+          this.toastService.openToast(["Stock Created Successfully"], "success");
         },
         error: (err) => {
           console.log(err);

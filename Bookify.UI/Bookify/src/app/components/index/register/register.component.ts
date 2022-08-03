@@ -146,20 +146,22 @@ export class RegisterComponent implements OnInit {
         this.registerResponse = response;
         
         if(this.registerResponse.isSuccessfulRegister){
-          this.toastService.openToast(2, "SignUp Successful", "primary");
+          this.toastService.openToast(["SignUp Successful"], "primary");
           
           this.router.navigate(['confirm']);
         }
       },
       error: (err) => {
         var error = err.error;
+        
+        let errorMessage: string[] = [];
 
         if(error.hasOwnProperty('errors')){
           this.registerResponse = error;
 
           if(this.registerResponse.errors.length > 0){
             this.registerResponse.errors.forEach(message => {
-              this.toastService.openToast(2, message, "danger");
+              errorMessage.push(message);
             });
           }else{
             // validation errors
@@ -167,11 +169,13 @@ export class RegisterComponent implements OnInit {
               let errorSet = error.errors[er];
   
               errorSet.forEach((message: string) => {
-                this.toastService.openToast(2, message, "danger");
+                errorMessage.push(message);
               });
             }
           }
         }
+
+        this.toastService.openToast(errorMessage, "danger");
       }
     });
 

@@ -105,7 +105,7 @@ export class BooksComponent implements AfterViewInit {
     this.bookService.DeleteBook(id)
     .subscribe({
       next: (response) => {
-        this.toastService.openToast(2, "Book Deleted Successfully", "success");
+        this.toastService.openToast(["Book Deleted Successfully"], "success");
 
         for(var i=0; i < this.books.length; i++){
           let bookObj = this.books[i];
@@ -118,7 +118,7 @@ export class BooksComponent implements AfterViewInit {
         }
       },
       error: (response) => {
-        this.toastService.openToast(5, "Book Delete Failed", "danger");
+        this.toastService.openToast(["Book Delete Failed"], "danger");
       }
     });
   }

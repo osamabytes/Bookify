@@ -48,12 +48,14 @@ export class AddBookshopComponent implements OnInit {
       .subscribe({
         next: (bookShop) => {
           addBookShopForm.reset();
-          this.toastService.openToast(3, "Bookshop Updated Successfully", "success");
+          this.toastService.openToast(["Bookshop Updated Successfully"], "success");
 
           this.router.navigate(['', 'auth', 'bookshops']);
         },
         error: (err) => {
           console.log(err);
+
+          let errorMessage: string[] = [];
 
           if(err.error.hasOwnProperty('errors')){
             var errors = err.error.errors;
@@ -62,14 +64,16 @@ export class AddBookshopComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                this.toastService.openToast(2, item, "danger");
+                errorMessage.push(item);
               });
             }
           }
 
           if(err.status === 400){
-            this.toastService.openToast(3, "Bad Request", "danger");
+            errorMessage.push("Bad Request");
           }
+
+          this.toastService.openToast(errorMessage, "danger");
         }
       });
     }else{
@@ -77,12 +81,14 @@ export class AddBookshopComponent implements OnInit {
       .subscribe({
         next: (bookShop) => {
           addBookShopForm.reset();
-          this.toastService.openToast(3, "Bookshop Added Successfully", "success");
+          this.toastService.openToast(["Bookshop Added Successfully"], "success");
 
           this.router.navigate(['', 'auth', 'bookshops']);
         },
         error: (err) => {
           console.log(err);
+
+          let errorMessage: string[] = [];
 
           if(err.error.hasOwnProperty('errors')){
             var errors = err.error.errors;
@@ -91,14 +97,16 @@ export class AddBookshopComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                this.toastService.openToast(3, item, "danger");
+                errorMessage.push(item);
               });
             }
           }
 
           if(err.status === 400){
-            this.toastService.openToast(3, "Bad Request", "danger");
+            errorMessage.push("Bad Request");
           }
+
+          this.toastService.openToast(errorMessage, "danger");
         }
       });
     }

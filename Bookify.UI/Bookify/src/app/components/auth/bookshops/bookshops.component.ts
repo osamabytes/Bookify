@@ -70,7 +70,7 @@ export class BookshopsComponent implements AfterViewInit {
     this.bookShopService.DeleteBookshop(id)
     .subscribe({
       next: (response) => {
-        this.toastService.openToast(2, "Bookshop Deleted Successfully", "success");
+        this.toastService.openToast(["Bookshop Deleted Successfully"], "success");
 
         for(var i=0; i < this.bookShops.length; i++){
           let bookShopObj = this.bookShops[i];
@@ -84,7 +84,7 @@ export class BookshopsComponent implements AfterViewInit {
       },
       error: (err) => {
         if(err.status == 400){
-          this.toastService.openToast(2, "Bad Request", "danger");
+          this.toastService.openToast(["Bad Request"], "danger");
         }
       }
     });

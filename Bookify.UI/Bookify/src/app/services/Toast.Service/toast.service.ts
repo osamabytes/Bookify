@@ -8,9 +8,10 @@ export class ToastService {
 
   constructor(private snakbar: MatSnackBar) { }
 
-  public openToast(duration: number, data: any, type: string){
+  public openToast(data: any[], type: string){
 
     let className = "";
+    let timeout = 1500;
 
     if(type === "primary"){
       className = 'primarytoast';
@@ -19,10 +20,16 @@ export class ToastService {
     }else if(type === "success"){
       className = 'successtoast';
     }
-
-    this.snakbar.open(data, 'Close', {
-      duration: (duration * 1000),
-      panelClass: [className]
-    })
+    
+    data.forEach((message, index) => {
+      setTimeout(() => {
+        this.snakbar.open(message, 'Close', {
+          duration: timeout,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'right',
+          panelClass: [className]
+        });
+      }, index * (timeout + 500));
+    });
   }
 }

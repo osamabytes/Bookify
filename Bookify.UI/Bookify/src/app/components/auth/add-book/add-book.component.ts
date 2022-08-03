@@ -145,12 +145,13 @@ export class AddBookComponent implements OnInit {
       this.bookService.UpdateBook(this.bookInterface)
       .subscribe({
         next: (response) => {
-          this.toastService.openToast(3, "Book Updated Successfully", "success");
+          this.toastService.openToast(["Book Updated Successfully"], "success");
 
           this.router.navigate(['', 'auth', 'books']);
         },
         error: (err) => {
           console.log(err);
+          let errorMessage: string[] = [];
 
           if(err.error.hasOwnProperty('errors')){
             var errors = err.error.errors;
@@ -159,42 +160,49 @@ export class AddBookComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                this.toastService.openToast(2, item, "danger");
+                errorMessage.push(item);
               });
             }
           }
 
           if(err.status === 400){
-            this.toastService.openToast(3, "Bad Request", "danger");
+            errorMessage.push("Bad Request");
           }
+
+          this.toastService.openToast(errorMessage, "danger");
         }
       });
     }else{
       this.bookService.AddBook(this.bookInterface)
       .subscribe({
         next: (response) => {
-          this.toastService.openToast(2, "Book Added Successfully", "success");
+          this.toastService.openToast(["Book Added Successfully"], "success");
 
           this.router.navigate(['', 'auth', 'books']);
         },
         error: (err) => {
           console.log(err);
 
+          let errorMessage: string[] = [];
+
           if(err.error.hasOwnProperty('errors')){
             var errors = err.error.errors;
+            console.log(errors);
 
             for(var property in errors){
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                this.toastService.openToast(2, item, "danger");
+                errorMessage.push(item);
               });
             }
           }
 
           if(err.status === 400){
-            this.toastService.openToast(3, "Bad Request", "danger");
+            errorMessage.push("Bad Request");
           }
+
+          this.toastService.openToast(errorMessage, "danger");
         }
       });
     }
