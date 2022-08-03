@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Bookshop } from 'src/app/models/Bookshop.model';
 import { BookshopService } from 'src/app/services/BookShop.Service/bookshop.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
+import { DeleteComponent } from '../../Modals/Confirmation/delete/delete.component';
 import { ViewBookshopModalComponent } from '../../Modals/view-bookshop-modal/view-bookshop-modal.component';
 
 @Component({
@@ -67,26 +68,48 @@ export class BookshopsComponent implements AfterViewInit {
 
 
   DeleteBookShop(id: string){
-    this.bookShopService.DeleteBookshop(id)
-    .subscribe({
-      next: (response) => {
-        this.toastService.openToast(["Bookshop Deleted Successfully"], "success");
+    let dataList: any = [{
+      entity: 'Bookshop'
+    }];
 
-        for(var i=0; i < this.bookShops.length; i++){
-          let bookShopObj = this.bookShops[i];
+    this.bookShops.forEach(bookShop => {
+      if(bookShop.id === id){
+        dataList.entity = bookShop;
+      }  
+    });
 
-          if(bookShopObj.id === id){
-            this.bookShops.splice(i, 1);
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width: '500px',
+      data: dataList
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      var dialogResult = result;
+
+      if(dialogResult){
+        this.bookShopService.DeleteBookshop(id)
+        .subscribe({
+          next: (response) => {
+            this.toastService.openToast(["Bookshop Deleted Successfully"], "success");
+
+            for(var i=0; i < this.bookShops.length; i++){
+              let bookShopObj = this.bookShops[i];
+
+              if(bookShopObj.id === id){
+                this.bookShops.splice(i, 1);
+              }
+
+              this.dataSource.data = this.bookShops;
+            }
+          },
+          error: (err) => {
+            if(err.status == 400){
+              this.toastService.openToast(["Bad Request"], "danger");
+            }
           }
-
-          this.dataSource.data = this.bookShops;
-        }
-      },
-      error: (err) => {
-        if(err.status == 400){
-          this.toastService.openToast(["Bad Request"], "danger");
-        }
+        }); 
       }
+
     });
   }
 }

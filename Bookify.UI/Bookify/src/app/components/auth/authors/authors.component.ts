@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Author } from 'src/app/models/Author.model';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
+import { DeleteComponent } from '../../Modals/Confirmation/delete/delete.component';
 import { ViewAuthorModalComponent } from '../../Modals/view-author-modal/view-author-modal.component';
 
 @Component({
@@ -68,26 +69,49 @@ export class AuthorsComponent implements AfterViewInit {
   }
 
   DeleteAuthor(id: string){
-    this.authorService.Delete(id)
-    .subscribe({
-      next: (response: any) => {
-        this.toastService.openToast(["Author Deleted Successfully"], "success");
 
-        for(var i=0; i < this.authors.length; i++){
-          let authorObj = this.authors[i];
+    let dataList: any = [{
+      entity: 'Author'
+    }];
 
-          if(authorObj.id === id){
-            this.authors.splice(i, 1);
+    this.authors.forEach(author => {
+      if(author.id === id){
+        dataList.entity = author;
+      }  
+    });
+    
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width: '500px',
+      data: dataList
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      var dialogResult = result;
+
+      if(dialogResult){
+        this.authorService.Delete(id)
+        .subscribe({
+          next: (response: any) => {
+            this.toastService.openToast(["Author Deleted Successfully"], "success");
+
+            for(var i=0; i < this.authors.length; i++){
+              let authorObj = this.authors[i];
+
+              if(authorObj.id === id){
+                this.authors.splice(i, 1);
+              }
+
+              this.dataSource.data = this.authors;
+            }
+          },
+          error: (err) => {
+            if(err.status == 400){
+              this.toastService.openToast(["Bad Request"], "danger");
+            }
           }
-
-          this.dataSource.data = this.authors;
-        }
-      },
-      error: (err) => {
-        if(err.status == 400){
-          this.toastService.openToast(["Bad Request"], "danger");
-        }
+        });
       }
+
     });
   }
 

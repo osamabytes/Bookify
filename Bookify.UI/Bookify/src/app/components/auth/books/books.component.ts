@@ -10,6 +10,7 @@ import { AddToBookShopComponent } from '../../Modals/add-to-book-shop/add-to-boo
 import { AddBookComponent } from '../add-book/add-book.component';
 import { AddBookStockComponent } from '../../Modals/add-book-stock/add-book-stock.component';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
+import { DeleteComponent } from '../../Modals/Confirmation/delete/delete.component';
 
 @Component({
   selector: 'app-books',
@@ -102,24 +103,46 @@ export class BooksComponent implements AfterViewInit {
   }
 
   DeleteBook(id: string){
-    this.bookService.DeleteBook(id)
-    .subscribe({
-      next: (response) => {
-        this.toastService.openToast(["Book Deleted Successfully"], "success");
+    let dataList: any = [{
+      entity: 'Book'
+    }];
 
-        for(var i=0; i < this.books.length; i++){
-          let bookObj = this.books[i];
+    this.books.forEach(book => {
+      if(book.id === id){
+        dataList.entity = book;
+      }  
+    });
 
-          if(bookObj.id === id){
-            this.books.splice(i, 1);
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width: '500px',
+      data: dataList
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      var dialogResult = result;
+
+      if(dialogResult){
+        this.bookService.DeleteBook(id)
+        .subscribe({
+          next: (response) => {
+            this.toastService.openToast(["Book Deleted Successfully"], "success");
+
+            for(var i=0; i < this.books.length; i++){
+              let bookObj = this.books[i];
+
+              if(bookObj.id === id){
+                this.books.splice(i, 1);
+              }
+
+              this.dataSource.data = this.books;
+            }
+          },
+          error: (response) => {
+            this.toastService.openToast(["Book Delete Failed"], "danger");
           }
-
-          this.dataSource.data = this.books;
-        }
-      },
-      error: (response) => {
-        this.toastService.openToast(["Book Delete Failed"], "danger");
+        });
       }
+      
     });
   }
 
