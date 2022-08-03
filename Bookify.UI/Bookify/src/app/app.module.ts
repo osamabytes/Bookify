@@ -58,6 +58,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AddToBookShopComponent } from './components/Modals/add-to-book-shop/add-to-book-shop.component';
 import { AddBookStockComponent } from './components/Modals/add-book-stock/add-book-stock.component';
+import { LogoutComponent } from './components/Modals/Confirmation/logout/logout.component';
+import { DeleteComponent } from './components/Modals/Confirmation/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import { AddBookStockComponent } from './components/Modals/add-book-stock/add-bo
     ViewCategoryModalComponent,
     AddToBookShopComponent,
     AddBookStockComponent,
+    LogoutComponent,
+    DeleteComponent,
   ],
   entryComponents:[
     ViewBookModalComponent,
