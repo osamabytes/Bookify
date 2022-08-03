@@ -9,6 +9,7 @@ import { ViewBookModalComponent } from '../../Modals/view-book-modal/view-book-m
 import { AddToBookShopComponent } from '../../Modals/add-to-book-shop/add-to-book-shop.component';
 import { AddBookComponent } from '../add-book/add-book.component';
 import { AddBookStockComponent } from '../../Modals/add-book-stock/add-book-stock.component';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
 @Component({
   selector: 'app-books',
@@ -26,7 +27,7 @@ export class BooksComponent implements AfterViewInit {
 
   books: Book[] = [];
 
-  constructor(private dialog: MatDialog, private bookService: BookService) {
+  constructor(private dialog: MatDialog, private toastService: ToastService, private bookService: BookService) {
   }
 
   ngAfterViewInit(): void {
@@ -104,7 +105,7 @@ export class BooksComponent implements AfterViewInit {
     this.bookService.DeleteBook(id)
     .subscribe({
       next: (response) => {
-        console.log("Book Deleted Successfully");
+        this.toastService.openToast(2, "Book Deleted Successfully", "success");
 
         for(var i=0; i < this.books.length; i++){
           let bookObj = this.books[i];
@@ -117,7 +118,7 @@ export class BooksComponent implements AfterViewInit {
         }
       },
       error: (response) => {
-        console.log("Book Delete Failed");
+        this.toastService.openToast(5, "Book Delete Failed", "danger");
       }
     });
   }

@@ -7,6 +7,7 @@ import { Category } from 'src/app/models/Category.model';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
 import { BookService } from 'src/app/services/Book.Service/book.service';
 import { CategoryService } from 'src/app/services/Category.Service/category.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
 @Component({
   selector: 'app-add-book',
@@ -37,7 +38,7 @@ export class AddBookComponent implements OnInit {
   };
 
   constructor(private route: ActivatedRoute, private router: Router, private bookService: BookService, 
-    private authorService: AuthorService, private categoryService: CategoryService) { }
+    private authorService: AuthorService, private categoryService: CategoryService, private toastService: ToastService) { }
 
     ngOnInit(): void {
       this.route.paramMap.subscribe({
@@ -144,7 +145,7 @@ export class AddBookComponent implements OnInit {
       this.bookService.UpdateBook(this.bookInterface)
       .subscribe({
         next: (response) => {
-          console.log("Book Updated Successfully");
+          this.toastService.openToast(3, "Book Updated Successfully", "success");
 
           this.router.navigate(['', 'auth', 'books']);
         },
@@ -158,13 +159,13 @@ export class AddBookComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                console.log(item);
+                this.toastService.openToast(2, item, "danger");
               });
             }
           }
 
           if(err.status === 400){
-            console.log("Server Error");
+            this.toastService.openToast(3, "Bad Request", "danger");
           }
         }
       });
@@ -172,7 +173,7 @@ export class AddBookComponent implements OnInit {
       this.bookService.AddBook(this.bookInterface)
       .subscribe({
         next: (response) => {
-          console.log("Book Added Successfully");
+          this.toastService.openToast(2, "Book Added Successfully", "success");
 
           this.router.navigate(['', 'auth', 'books']);
         },
@@ -186,13 +187,13 @@ export class AddBookComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                console.log(item);
+                this.toastService.openToast(2, item, "danger");
               });
             }
           }
 
           if(err.status === 400){
-            console.log("Server Error");
+            this.toastService.openToast(3, "Bad Request", "danger");
           }
         }
       });

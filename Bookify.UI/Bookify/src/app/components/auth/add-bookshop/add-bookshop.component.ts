@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Bookshop } from 'src/app/models/Bookshop.model';
 import { BookshopService } from 'src/app/services/BookShop.Service/bookshop.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
 @Component({
   selector: 'app-add-bookshop',
@@ -18,7 +19,8 @@ export class AddBookshopComponent implements OnInit {
     address: ''
   };
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private bookShopService: BookshopService) { }
+  constructor(private activatedRoute: ActivatedRoute, private toastService: ToastService,
+     private router: Router, private bookShopService: BookshopService) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -46,7 +48,7 @@ export class AddBookshopComponent implements OnInit {
       .subscribe({
         next: (bookShop) => {
           addBookShopForm.reset();
-          console.log("Bookshop Updated Successfully");
+          this.toastService.openToast(3, "Bookshop Updated Successfully", "success");
 
           this.router.navigate(['', 'auth', 'bookshops']);
         },
@@ -60,13 +62,13 @@ export class AddBookshopComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                console.log(item);
+                this.toastService.openToast(2, item, "danger");
               });
             }
           }
 
           if(err.status === 400){
-            console.log("Server Error");
+            this.toastService.openToast(3, "Bad Request", "danger");
           }
         }
       });
@@ -75,7 +77,7 @@ export class AddBookshopComponent implements OnInit {
       .subscribe({
         next: (bookShop) => {
           addBookShopForm.reset();
-          console.log("Bookshop Added Successfully");
+          this.toastService.openToast(3, "Bookshop Added Successfully", "success");
 
           this.router.navigate(['', 'auth', 'bookshops']);
         },
@@ -89,13 +91,13 @@ export class AddBookshopComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                console.log(item);
+                this.toastService.openToast(3, item, "danger");
               });
             }
           }
 
           if(err.status === 400){
-            console.log("Server Error");
+            this.toastService.openToast(3, "Bad Request", "danger");
           }
         }
       });

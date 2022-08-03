@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralResponse } from 'src/app/interfaces/Response/GeneralResponse.interface';
 import { StorageService } from 'src/app/services/Storage.Service/storage.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { UserService } from 'src/app/services/User.Service/user.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class AuthSideBarComponent implements OnInit {
     errors: []
   }
 
-  constructor(public activeRoute: ActivatedRoute, private storage: StorageService, private userService: UserService, private router: Router) { 
+  constructor(public activeRoute: ActivatedRoute, private storage: StorageService, private toastService: ToastService,
+     private userService: UserService, private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class AuthSideBarComponent implements OnInit {
         this.storage.Delete('token');
 
         this.response.errors.forEach(element => {
-          console.log(element);
+          this.toastService.openToast(2, element, "primary");
         });
 
         this.router.navigate(['']);

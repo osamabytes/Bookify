@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Author } from 'src/app/models/Author.model';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { ViewAuthorModalComponent } from '../../Modals/view-author-modal/view-author-modal.component';
 
 @Component({
@@ -19,7 +20,7 @@ export class AuthorsComponent implements AfterViewInit {
 
   authors: Author[] = [];
 
-  constructor(private dialog: MatDialog, private authorService: AuthorService) {
+  constructor(private dialog: MatDialog, private toastService: ToastService, private authorService: AuthorService) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
@@ -70,7 +71,7 @@ export class AuthorsComponent implements AfterViewInit {
     this.authorService.Delete(id)
     .subscribe({
       next: (response: any) => {
-        console.log("Author Deleted Successfully");
+        this.toastService.openToast(2, "Author Deleted Successfully", "success");
 
         for(var i=0; i < this.authors.length; i++){
           let authorObj = this.authors[i];
@@ -84,7 +85,7 @@ export class AuthorsComponent implements AfterViewInit {
       },
       error: (err) => {
         if(err.status == 400){
-          console.log("Server Error");
+          this.toastService.openToast(5, "Bad Request", "danger");
         }
       }
     });

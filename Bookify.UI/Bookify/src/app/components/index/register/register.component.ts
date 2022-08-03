@@ -12,6 +12,7 @@ import {default as _rollupMoment, Moment} from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { UserService } from 'src/app/services/User.Service/user.service';
 import { RegisterResponse } from 'src/app/interfaces/Response/RegisterResponse.interface';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
 const moment = _rollupMoment || _moment;
 export const CardExpirationDateFormat = {
@@ -114,7 +115,8 @@ export class RegisterComponent implements OnInit {
   userInfoFormGroup = this._formBuilder.group({
   });
 
-  constructor(private _formBuilder: FormBuilder, private router: Router, private userService: UserService) { }
+  constructor(private _formBuilder: FormBuilder, private toastService: ToastService, 
+    private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -144,7 +146,8 @@ export class RegisterComponent implements OnInit {
         this.registerResponse = response;
         
         if(this.registerResponse.isSuccessfulRegister){
-          console.log("SignUp Successful");
+          this.toastService.openToast(2, "SignUp Successful", "primary");
+          
           this.router.navigate(['confirm']);
         }
       },
@@ -156,7 +159,7 @@ export class RegisterComponent implements OnInit {
 
           if(this.registerResponse.errors.length > 0){
             this.registerResponse.errors.forEach(message => {
-              console.log(message);
+              this.toastService.openToast(2, message, "danger");
             });
           }else{
             // validation errors
@@ -164,7 +167,7 @@ export class RegisterComponent implements OnInit {
               let errorSet = error.errors[er];
   
               errorSet.forEach((message: string) => {
-                console.log(message);
+                this.toastService.openToast(2, message, "danger");
               });
             }
           }

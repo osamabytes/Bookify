@@ -3,6 +3,7 @@ import { FormControl, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author } from 'src/app/models/Author.model';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
 @Component({
   selector: 'app-add-author',
@@ -19,7 +20,7 @@ export class AddAuthorComponent implements OnInit {
 
   authorName = new FormControl('', [Validators.required]);
 
-  constructor(private activatedRoute: ActivatedRoute, private authorService: AuthorService, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private toastService: ToastService, private authorService: AuthorService, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -57,7 +58,7 @@ export class AddAuthorComponent implements OnInit {
         next: (author) => {
           addauthorform.reset();
 
-          console.log("Author Updated Successfully");
+          this.toastService.openToast(2, "Author Updated Successfully", "success");
 
           this.router.navigate(['', 'auth', 'authors']);
         },
@@ -69,13 +70,13 @@ export class AddAuthorComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                console.log(item);
+                this.toastService.openToast(3, item, "danger");
               });
             }
           }
 
           if(err.status === 400){
-            console.log("Server Error");
+            this.toastService.openToast(3, "Bad Request", "danger");
           }
         }
       })
@@ -85,7 +86,7 @@ export class AddAuthorComponent implements OnInit {
         next: (author) => {
           addauthorform.reset();
 
-          console.log("Author Added Successfully");
+          this.toastService.openToast(2, "Author Added Successfully", "success");
 
           this.router.navigate(['', 'auth', 'authors']);
         },
@@ -99,13 +100,13 @@ export class AddAuthorComponent implements OnInit {
               let errorList = errors[property];
 
               errorList.forEach((item: any) => {
-                console.log(item);
+                this.toastService.openToast(3, item, "danger");
               });
             }
           }
 
           if(err.status === 400){
-            console.log("Server Error");
+            this.toastService.openToast(3, "Bad Request", "danger");
           }
         }
       });

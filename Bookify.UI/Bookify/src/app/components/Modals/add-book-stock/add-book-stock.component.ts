@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BookStock } from 'src/app/interfaces/Book_Stock.interface';
 import { Stock } from 'src/app/models/Stock.model';
 import { StockService } from 'src/app/services/Stock.Service/stock.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
 @Component({
   selector: 'app-add-book-stock',
@@ -19,7 +20,7 @@ export class AddBookStockComponent implements OnInit {
   }
 
   constructor(private stockService: StockService, private dialogRef: MatDialogRef<AddBookStockComponent>, 
-    @Inject(MAT_DIALOG_DATA) data : any) {
+    @Inject(MAT_DIALOG_DATA) data : any, private toastService: ToastService) {
       this.book = data;
     }
 
@@ -51,7 +52,7 @@ export class AddBookStockComponent implements OnInit {
         next: (stock) => {
           this.stock = stock;
 
-          console.log("Stock Updated Successfully.");
+          this.toastService.openToast(2, "Stock Updated Successfully.", "success");
         },
         error: (err) => {
           console.log(err);
@@ -68,7 +69,7 @@ export class AddBookStockComponent implements OnInit {
         next: (stock) => {
           this.stock = stock;
 
-          console.log("Stock Created Successfully");
+          this.toastService.openToast(2, "Stock Created Successfully", "success");
         },
         error: (err) => {
           console.log(err);

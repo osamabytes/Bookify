@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthResponse } from 'src/app/interfaces/Response/AuthResponse.interface';
 import { UserLogin } from 'src/app/interfaces/UserLogin.interface';
 import { StorageService } from 'src/app/services/Storage.Service/storage.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { UserService } from 'src/app/services/User.Service/user.service';
 
 @Component({
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     token: ''
   }
 
-  constructor(private userService: UserService, private storageService: StorageService, private router: Router) { }
+  constructor(private userService: UserService, private toastService: ToastService, 
+      private storageService: StorageService, private router: Router) { }
 
   ngOnInit(): void {
     
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
 
         this.storageService.Save('token', this.authResponse.token);
 
-        console.log("User Login Success");
+        this.toastService.openToast(2, "User Login Success", "success");
 
         this.router.navigate(['auth']);
       },
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
         var error = err.error;
 
         this.authResponse = error;
-        console.log(this.authResponse.errorMessage);
+        this.toastService.openToast(2, this.authResponse.errorMessage, "danger");
       }
     });
   }

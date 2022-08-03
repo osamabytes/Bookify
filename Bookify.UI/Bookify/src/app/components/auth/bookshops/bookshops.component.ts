@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Bookshop } from 'src/app/models/Bookshop.model';
 import { BookshopService } from 'src/app/services/BookShop.Service/bookshop.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 import { ViewBookshopModalComponent } from '../../Modals/view-bookshop-modal/view-bookshop-modal.component';
 
 @Component({
@@ -22,7 +23,7 @@ export class BookshopsComponent implements AfterViewInit {
 
   bookShops: Bookshop[] = [];
 
-  constructor(private dialog: MatDialog, private bookShopService: BookshopService) {}
+  constructor(private dialog: MatDialog, private toastService: ToastService, private bookShopService: BookshopService) {}
   
   ngAfterViewInit(): void {
     this.bookShopService.AllBookshops()
@@ -69,7 +70,7 @@ export class BookshopsComponent implements AfterViewInit {
     this.bookShopService.DeleteBookshop(id)
     .subscribe({
       next: (response) => {
-        console.log("Bookshop Deleted Successfully");
+        this.toastService.openToast(2, "Bookshop Deleted Successfully", "success");
 
         for(var i=0; i < this.bookShops.length; i++){
           let bookShopObj = this.bookShops[i];
@@ -83,9 +84,9 @@ export class BookshopsComponent implements AfterViewInit {
       },
       error: (err) => {
         if(err.status == 400){
-          console.log("Server Error");
+          this.toastService.openToast(2, "Bad Request", "danger");
         }
       }
-    })
+    });
   }
 }

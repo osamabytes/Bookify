@@ -4,6 +4,7 @@ import { Book_BookShop } from 'src/app/interfaces/Book_BookShopInterface.interfa
 import { Book } from 'src/app/models/Book.model';
 import { Bookshop } from 'src/app/models/Bookshop.model';
 import { BookshopService } from 'src/app/services/BookShop.Service/bookshop.service';
+import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 
 @Component({
   selector: 'app-add-to-book-shop',
@@ -37,7 +38,7 @@ export class AddToBookShopComponent implements OnInit {
   }
 
   constructor(private bookShopService: BookshopService, private dialogRef: MatDialogRef<AddToBookShopComponent>, 
-      @Inject(MAT_DIALOG_DATA) data : any) {
+      @Inject(MAT_DIALOG_DATA) data : any, private toastService: ToastService) {
         this.book = data;
         this.bookBookShopInterface.bookId = this.book.id;
       }
@@ -78,11 +79,12 @@ export class AddToBookShopComponent implements OnInit {
         next: (bookshop) => {
           this.bookShop = bookshop;
 
-          console.log("Book Updated to the Selected Bookshop Successfully.");
+          this.toastService.openToast(2, "Book Updated to the Selected Bookshop Successfully.", "success");
         },
         error: (err) => {
           console.log(err);
-          console.log("Failed to Set the following Book to the Selected Bookshop");
+          
+          this.toastService.openToast(3, "Failed to Set the following Book to the Selected Bookshop", "danger");
         }
       });
     }else{
@@ -90,12 +92,13 @@ export class AddToBookShopComponent implements OnInit {
       .subscribe({
         next: (bookshop) => {
           this.bookShop = bookshop;
-          console.log("Book Assigned to the Selected Bookshop Successfully.");
+          
+          this.toastService.openToast(2, "Book Assigned to the Selected Bookshop Successfully.", "success");
         },
         error: (err) => {
           console.log(err);
 
-          console.log("Failed to Set the following Book to the Selected Bookshop");
+          this.toastService.openToast(3, "Failed to Set the following Book to the Selected Bookshop", "danger");
         }
       });
     }
