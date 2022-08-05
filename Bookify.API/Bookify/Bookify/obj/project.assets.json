@@ -800,8 +800,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Domain": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.7",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.7"
         },
         "compile": {
@@ -817,13 +817,41 @@
         "dependencies": {
           "AutoMapper": "11.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
-          "Bookify.Data": "1.0.0"
+          "Domain": "1.0.0",
+          "Repository": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Bookify.Service.dll": {}
         },
         "runtime": {
           "bin/placeholder/Bookify.Service.dll": {}
+        }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.7"
+        },
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
+      },
+      "Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Bookify.Data": "1.0.0",
+          "Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Repository.dll": {}
         }
       }
     }
@@ -2304,12 +2332,22 @@
       "type": "project",
       "path": "../Bookify.Service/Bookify.Service.csproj",
       "msbuildProject": "../Bookify.Service/Bookify.Service.csproj"
+    },
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
+    },
+    "Repository/1.0.0": {
+      "type": "project",
+      "path": "../Repository/Repository.csproj",
+      "msbuildProject": "../Repository/Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Bookify.Data >= 1.0.0",
       "Bookify.Service >= 1.0.0",
+      "Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.7",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
@@ -2346,11 +2384,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\osama\\Documents\\Github\\Bookify\\Bookify.API\\Bookify\\Bookify.Data\\Bookify.Data.csproj": {
-              "projectPath": "C:\\Users\\osama\\Documents\\Github\\Bookify\\Bookify.API\\Bookify\\Bookify.Data\\Bookify.Data.csproj"
-            },
             "C:\\Users\\osama\\Documents\\Github\\Bookify\\Bookify.API\\Bookify\\Bookify.Service\\Bookify.Service.csproj": {
               "projectPath": "C:\\Users\\osama\\Documents\\Github\\Bookify\\Bookify.API\\Bookify\\Bookify.Service\\Bookify.Service.csproj"
+            },
+            "C:\\Users\\osama\\Documents\\Github\\Bookify\\Bookify.API\\Bookify\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\osama\\Documents\\Github\\Bookify\\Bookify.API\\Bookify\\Domain\\Domain.csproj"
             }
           }
         }

@@ -1,36 +1,14 @@
-﻿using Bookify.Data.CRUD;
-using Bookify.Data.Data;
-using Bookify.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bookify.Service.interfaces;
+using Domain.UnitOfWork;
 
 namespace Bookify.Service.Services
 {
-    public class CategoryService
+    public class CategoryService: ICategoryService
     {
-        private readonly CategoryCRUD _categoryCrud;
-
-        public CategoryService(BookifyDbContext bookifyDbContext)
+        private IUnitOfWork _unitOfWork;
+        public CategoryService(IUnitOfWork unitOfWork)
         {
-            _categoryCrud = new CategoryCRUD(bookifyDbContext);
+            _unitOfWork = unitOfWork;
         }
-
-        public async Task<List<Category>> CategoriesList()
-        {
-            return await _categoryCrud.SelectAll();
-        }
-
-        public async Task<Category> GetSingleCategory(Guid uid)
-        {
-            return await _categoryCrud.SelectById(uid);
-        }
-
-        public async Task<List<Category>> GetCategoriesListByBookId(Guid Id)
-        {
-            return await _categoryCrud.SelectCategoriesByBookId(Id);
-        } 
     }
 }

@@ -12,3 +12,6 @@ C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify.Data\obj\Deb
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify.Data\obj\Debug\net6.0\Bookify.Data.pdb
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify.Data\obj\Debug\net6.0\Bookify.Data.genruntimeconfig.cache
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify.Data\obj\Debug\net6.0\ref\Bookify.Data.dll
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify.Data\bin\Debug\net6.0\Domain.dll
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify.Data\bin\Debug\net6.0\Domain.pdb
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify.Data\obj\Debug\net6.0\Bookify.Data.csproj.CopyComplete
