@@ -70,6 +70,7 @@ export class BooksComponent implements AfterViewInit {
       next: (book) => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = book;
+        dialogConfig.width = '600px';
 
         this.dialog.open(ViewBookModalComponent, dialogConfig); 
       },
@@ -88,6 +89,7 @@ export class BooksComponent implements AfterViewInit {
       next: (book) => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = book;
+        dialogConfig.width = '500px';
 
         this.dialog.open(AddToBookShopComponent, dialogConfig); 
       },
@@ -106,6 +108,7 @@ export class BooksComponent implements AfterViewInit {
       next: (book) => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = book;
+        dialogConfig.width = '500px';
 
         this.dialog.open(AddBookStockComponent, dialogConfig); 
       },

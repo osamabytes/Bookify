@@ -6,16 +6,27 @@
         <button (click)="OnChangeStock('reduce')" mat-fab color="warn">
             <mat-icon>remove_circle_outline</mat-icon>
         </button>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="bookstock_input" appearance="fill">
             <mat-label>Enter Stock</mat-label>
-            <input type="number" [(ngModel)]="stock.itemStock" [disabled]="true" matInput placeholder="Ex. 5">
+            <input type="number" [(ngModel)]="stock.itemStock" matInput placeholder="Ex. 5">
         </mat-form-field>
         <button (click)="OnChangeStock('add')" mat-fab color="primary">
             <mat-icon>add_circle_outline</mat-icon>
         </button>
     </div>
-    <button mat-raised-button color="primary" (click)="AddStock()">Submit</button>
+    <mat-slider
+    thumbLabel
+    [displayWith]="SliderFormatLabel"
+    [tickInterval]="100"
+    step="50"
+    min="0"
+    max="10000"
+    [color]="'primary'"
+    [value]="stock.itemStock"
+    (change)="OnsliderChange($event)"
+    ></mat-slider>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="warn">Close</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="AddStock()">Ok</button>
 </mat-dialog-actions>

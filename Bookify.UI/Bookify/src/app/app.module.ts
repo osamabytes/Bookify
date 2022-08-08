@@ -25,6 +25,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 import { SidebarComponent } from './components/index/sidebar/sidebar.component';
@@ -125,7 +126,8 @@ import { DeleteComponent } from './components/Modals/Confirmation/delete/delete.
     MatSortModule,
     MatSlideToggleModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSliderModule
   ],
   providers: [
     {

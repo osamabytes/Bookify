@@ -2,7 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Author } from 'src/app/models/Author.model';
 import { Book } from 'src/app/models/Book.model';
+import { Category } from 'src/app/models/Category.model';
 import { AuthorService } from 'src/app/services/Author.Service/author.service';
+import { CategoryService } from 'src/app/services/Category.Service/category.service';
 
 @Component({
   selector: 'app-view-book-modal',
@@ -23,10 +25,12 @@ export class ViewBookModalComponent implements OnInit {
     id: '00000000-0000-0000-0000-000000000000',
     name: '',
     description: ''
-  }
+  };
+
+  categories: Category[] = [];
 
   constructor(private dialogRef: MatDialogRef<ViewBookModalComponent>, @Inject(MAT_DIALOG_DATA) data: any, 
-    private authorService: AuthorService) { 
+    private authorService: AuthorService, private categoryService: CategoryService) { 
     this.book = data;
   }
 
@@ -39,7 +43,17 @@ export class ViewBookModalComponent implements OnInit {
       error: (err) => {
         console.log(err);
       }
-    })
+    });
+
+    this.categoryService.GetBookCategoires(this.book.id)
+    .subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
   }
 
 }

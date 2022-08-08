@@ -1,15 +1,28 @@
-<h2 mat-dialog-title>Book</h2>
+<h2 mat-dialog-title>{{book.name}}</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>{{book.name}}</h3>
 
-  <h3>ISBN: {{book.isbn}}</h3>
+  <div class="description_container">
+    <h3><u>Description</u></h3>
+    <p>{{book.description}}</p>
+  </div>
 
-  <h2>Description</h2>
-  <p>{{book.description}}</p>
+  <div class="isbn_container">
+    <h2><u>ISBN</u></h2>
+    <p>{{book.isbn}}</p>
+  </div>
 
-  <h2>Author Name</h2>
-  <p>{{author.name}}</p>
+  <div class="author_container">
+    <h2><u>Author</u></h2>
+    <p>{{author.name}}</p>
+  </div>
+
+  <div class="categories_container">
+    <h2><u>Categories</u></h2>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let category of categories">{{category.name}}</mat-list-item>
+    </mat-list>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="warn">Close</button>
 </mat-dialog-actions>

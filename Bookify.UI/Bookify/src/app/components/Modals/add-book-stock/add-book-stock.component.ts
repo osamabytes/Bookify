@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSliderChange } from '@angular/material/slider';
 import { BookStock } from 'src/app/interfaces/Book_Stock.interface';
 import { Stock } from 'src/app/models/Stock.model';
 import { StockService } from 'src/app/services/Stock.Service/stock.service';
@@ -42,6 +43,21 @@ export class AddBookStockComponent implements OnInit {
     }else if(type === 'reduce'){
       this.stock.itemStock > 0 ? this.stock.itemStock -=1 : 0;
     }
+  }
+
+  OnsliderChange(event: MatSliderChange){
+    let value = event.value;
+    if(value != null){
+      this.stock.itemStock = value;
+    }
+  }
+
+  SliderFormatLabel(value: number){
+    if(value >= 1000){
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return value;
   }
 
   AddStock(){
