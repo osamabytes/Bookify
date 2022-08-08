@@ -63,6 +63,8 @@ export class CategoriesComponent implements AfterViewInit {
       next: (category) => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = category;
+        dialogConfig.width = '500px';
+        dialogConfig.height = '500px';
 
         this.dialog.open(ViewCategoryModalComponent, dialogConfig);
       },

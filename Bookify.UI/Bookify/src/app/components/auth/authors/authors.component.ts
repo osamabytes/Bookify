@@ -65,6 +65,7 @@ export class AuthorsComponent implements AfterViewInit {
       next: (author) => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = author;
+        dialogConfig.width = '500px';
 
         this.dialog.open(ViewAuthorModalComponent, dialogConfig);
       },

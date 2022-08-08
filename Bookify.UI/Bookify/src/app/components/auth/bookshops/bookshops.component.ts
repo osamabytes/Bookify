@@ -65,6 +65,7 @@ export class BookshopsComponent implements AfterViewInit {
       next: (bookShop) => {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = bookShop;
+        dialogConfig.width = '500px';
 
         this.dialog.open(ViewBookshopModalComponent, dialogConfig);
       },
