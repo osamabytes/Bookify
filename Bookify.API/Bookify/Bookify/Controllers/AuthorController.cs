@@ -1,4 +1,4 @@
-﻿using Bookify.Service.Services;
+﻿using Bookify.Service.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +9,9 @@ namespace Bookify.Controllers
     [Route("api/[controller]")]
     public class AuthorController : Controller
     {
-        private readonly AuthorService _authorService;
+        private readonly IAuthorService _authorService;
 
-        public AuthorController(AuthorService authorService)
+        public AuthorController(IAuthorService authorService)
         {
             _authorService = authorService;
         }

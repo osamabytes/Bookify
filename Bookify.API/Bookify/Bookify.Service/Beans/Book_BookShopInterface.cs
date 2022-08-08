@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bookify.Service.Interfaces
+namespace Bookify.Service.Beans
 {
     public class Book_BookShopInterface
     {

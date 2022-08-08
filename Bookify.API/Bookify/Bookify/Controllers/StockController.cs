@@ -1,4 +1,4 @@
-﻿using Bookify.Service.Services;
+﻿using Bookify.Service.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +9,9 @@ namespace Bookify.Controllers
     [Route("api/[controller]")]
     public class StockController : Controller
     {
-        private readonly StockService _stockService;
+        private readonly IStockService _stockService;
 
-        public StockController(StockService stockService)
+        public StockController(IStockService stockService)
         {
             _stockService = stockService;
         }

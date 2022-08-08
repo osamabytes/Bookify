@@ -1,4 +1,4 @@
-﻿namespace Bookify.Service.Interfaces.Response
+﻿namespace Bookify.Service.Beans.Response
 {
     public class RegisterResponse
     {

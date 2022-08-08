@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Bookify.Service.Interfaces
+namespace Bookify.Service.Beans
 {
     public class StockBookInterface
     {

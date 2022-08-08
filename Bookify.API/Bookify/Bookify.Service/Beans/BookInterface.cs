@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace Bookify.Service.Interfaces
+namespace Bookify.Service.Beans
 {
     public class BookInterface
     {

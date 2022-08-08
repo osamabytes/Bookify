@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Bookify.Service.Interfaces;
+using Bookify.Service.Beans;
 using Domain.Entities;
 
 namespace Bookify.Service.Mapper
