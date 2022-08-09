@@ -1,4 +1,6 @@
-﻿using Bookify.Service.interfaces;
+﻿using Bookify.Service.Beans;
+using Bookify.Service.interfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +16,28 @@ namespace Bookify.Controllers
         public StockController(IStockService stockService)
         {
             _stockService = stockService;
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetStockByBook(Guid BookId)
+        {
+            var stock = await _stockService.GetStockByBook(BookId);
+            return Ok(stock);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddStock([FromBody] StockBookInterface stockBookInterface)
+        {
+            var stock = await _stockService.AddStock(stockBookInterface);
+            return Ok(stock);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateStock(Stock stock)
+        {
+            var s = await _stockService.UpdateStock(stock);
+            return Ok(s);
         }
     }
 }
