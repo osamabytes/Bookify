@@ -1,9 +1,7 @@
-﻿using Bookify.Data.Data;
-using Bookify.Data.Models;
-using Bookify.Service.Interfaces;
-using Bookify.Service.Services;
+﻿using Bookify.Service.Beans;
+using Bookify.Service.interfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Controllers
@@ -13,112 +11,81 @@ namespace Bookify.Controllers
     [Route("api/[controller]")]
     public class BookshopController : Controller
     {
-        private readonly BookshopService _bookShopService;
+        private IBookShopService _bookShopService;
 
-        public BookshopController(BookifyDbContext bookifyDbContext, UserManager<User> userManager)
+        public BookshopController(IBookShopService bookShopService)
         {
-            _bookShopService = new BookshopService(bookifyDbContext, userManager);
+            _bookShopService = bookShopService;
         }
 
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> SingleBookshop([FromRoute] Guid id)
+        public async Task<IActionResult> SingleBookShop([FromBody] Guid id)
         {
-            var bookShop = await _bookShopService.GetSingleBookshop(id);
-
-            if (bookShop == null)
-                return NotFound();
-
+            var bookShop = await _bookShopService.GetSingleBookShop(id);
             return Ok(bookShop);
         }
 
         [HttpGet("AllUserBookshop")]
-        public async Task<IActionResult> AllUserBookshops()
+        public async Task<IActionResult> AllUserBookShops()
         {
-            var user = User.Claims.FirstOrDefault();
+            var claim = User.Claims.FirstOrDefault();
 
-            var bookShops = await _bookShopService.GetAllUserBookshops(user);
-
-            if (bookShops == null)
-                return NotFound();
-
+            var bookShops = await _bookShopService.GetUserBookShops(claim);
             return Ok(bookShops);
         }
 
         [HttpPut("AddBookToBookShop")]
-        public async Task<IActionResult> AddBookToBookShop([FromBody] Book_BookShopInterface bookBookInterface)
+        public async Task<IActionResult> AddBookToBookShop([FromBody] Book_BookShopInterface bookBookShopInterface)
         {
-            var bookShop = await _bookShopService.SetBookToBookShops(bookBookInterface);
-
-            if (bookBookInterface == null)
-                return BadRequest();
-
+            var bookShop = await _bookShopService.AddBookToBookShop(bookBookShopInterface);
             return Ok(bookShop);
         }
 
         [HttpPut("UpdateBookToBookShop")]
-        public async Task<IActionResult> UpdateBookToBookShop([FromBody] Book_BookShopInterface bookBookInterface)
+        public async Task<IActionResult> UpdateBookToBookShop([FromBody] Book_BookShopInterface bookBookShopInterface)
         {
-            var bookShop = await _bookShopService.UpdateBookToBookshop(bookBookInterface);
-
-            if (bookBookInterface == null)
-                return BadRequest();
-
+            var bookShop = await _bookShopService.UpdateBookToBookShop(bookBookShopInterface);
             return Ok(bookShop);
         }
 
         [HttpGet("GetBooksByBookshop/{bookShopId}")]
-        public async Task<IActionResult> GetBooksByBookShop(Guid BookshopId)
+        public async Task<IActionResult> GetBooksByBookShop(Guid BookShopId)
         {
-            var books = await _bookShopService.GetBooksByBookshopId(BookshopId);
-
-            if (books == null)
-                return NotFound();
-
-            return Ok(books);
+            var bookShops = await _bookShopService.GetBooksByBookshopId(BookShopId);
+            return Ok(bookShops);
         }
 
         [HttpGet("GetBookShopbyBook/{bookId}")]
         public async Task<IActionResult> GetBookShopByBook(Guid BookId)
         {
-            var bookShop = await _bookShopService.GetBookShopbyBookId(BookId);
-
-            if (bookShop == null)
-                return NotFound();
-
+            var bookShop = await _bookShopService.GetBookShopByBookId(BookId);
             return Ok(bookShop);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBookshop([FromBody] BookShop bookShop)
+        public async Task<IActionResult> AddBookShop([FromBody] BookShop bookShop)
         {
-            if (bookShop == null || !ModelState.IsValid)
-                return BadRequest();
+            var userClaim = User.Claims.FirstOrDefault();
 
-            var user = User.Claims.FirstOrDefault();
-            var result = await _bookShopService.AddBookshop(bookShop, user);
-
-            return Ok(result);
+            var bs = await _bookShopService.AddBookShop(bookShop, userClaim);
+            return Ok(bs);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateBookShop([FromBody] BookShop bookShop)
         {
-            if (bookShop == null || !ModelState.IsValid)
-                return BadRequest();
-
-            var result = await _bookShopService.UpdateBookshop(bookShop);
-
-            return Ok(result);
+            var bs = await _bookShopService.UpdateBookShop(bookShop);
+            return Ok(bs);
         }
 
         [HttpDelete]
         [Route("{id:Guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid Id)
         {
-            var result = await _bookShopService.DeleteBookshop(Id);
-
-            if (result)
+            var bookShop = await _bookShopService.DeleteBookShop(Id);
+            
+            if(bookShop != null)
                 return Ok();
 
             return BadRequest();

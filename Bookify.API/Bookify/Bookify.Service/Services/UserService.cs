@@ -1,50 +1,62 @@
 ﻿using AutoMapper;
-using Bookify.Data.CRUD;
-using Bookify.Data.Data;
 using Bookify.Data.JwtBearer;
-using Bookify.Data.Models;
-using Bookify.Service.Interfaces;
+using Bookify.Service.Beans;
+using Bookify.Service.interfaces;
+using Domain.Entities;
+using Domain.Interfaces;
+using Domain.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Bookify.Service.Services
 {
-    public class UserService
+    public class UserService: IUserService
     {
+        private IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
-        private readonly BookifyDbContext _bookifyDbContext;
         private readonly IMapper _mapper;
         private readonly JwtHandler _jwtHandler;
 
-        private readonly UserCRUD _userCRUD;
+        private readonly IUser _userRepository;
 
-        public UserService(UserManager<User> userManager, BookifyDbContext bookifyDbContext, 
-            IMapper mapper, JwtHandler jwtHandler)
+        public UserService(IUnitOfWork unitOfWork, UserManager<User> userManager, IMapper mapper, 
+            JwtHandler jwtHandler, IUser userRepository)
         {
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
-            _bookifyDbContext = bookifyDbContext;
             _mapper = mapper;
             _jwtHandler = jwtHandler;
 
-            _userCRUD = new UserCRUD(_userManager, _bookifyDbContext, _jwtHandler);
+            _userRepository = userRepository;
         }
 
-        public async Task<IdentityResult> SignUp(UserRegister userRegisterDto)
+        public async Task<IdentityResult?> SignUp(UserRegister userRegister)
         {
-            userRegisterDto.Id = Guid.NewGuid();
+            userRegister.Id = Guid.NewGuid();
 
-            var user = _mapper.Map<User>(userRegisterDto);
-            return await _userCRUD.RegisterUser(user, userRegisterDto.Password);
+            var user = _mapper.Map<User>(userRegister);
+            return await _userManager.CreateAsync(user, userRegister.Password);
         }
 
-        public async Task<String> SignIn(UserLogin userLoginDto)
+        public async Task<string?> SignIn(UserLogin userLogin)
         {
-            return await _userCRUD.CheckUserLogin(userLoginDto.Email, userLoginDto.Password);
-        }
+            var result = await _userManager.FindByEmailAsync(userLogin.Email);
+
+            string token = null;
+
+            if(result != null)
+            {
+                var isAuth = await _userManager.CheckPasswordAsync(result, userLogin.Password);
+                if (isAuth)
+                {
+                    var sigingCredentials = _jwtHandler.GetSigningCredentials();
+                    var claims = _jwtHandler.GetClaims(result);
+                    var tokenOptions = _jwtHandler.GenerateTokenOptions(sigingCredentials, claims);
+                    token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                }
+            }
+
+            return token;
+        }  
     }
 }

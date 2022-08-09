@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using Bookify.Data.Models;
-using Bookify.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bookify.Service.Beans;
+using Domain.Entities;
 
 namespace Bookify.Service.Mapper
 {

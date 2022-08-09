@@ -1,9 +1,6 @@
-﻿using Bookify.Data.Data;
-using Bookify.Data.Models;
-using Bookify.Service.Interfaces;
-using Bookify.Service.Services;
+﻿using Bookify.Service.Beans;
+using Bookify.Service.interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Controllers
@@ -13,11 +10,11 @@ namespace Bookify.Controllers
     [Route("api/[controller]")]
     public class BookController : Controller
     {
-        private readonly BookService _bookService;
+        private readonly IBookService _bookService;
 
-        public BookController(BookifyDbContext bookifyDbContext, UserManager<User> userManager)
+        public BookController(IBookService bookService)
         {
-            _bookService = new BookService(bookifyDbContext, userManager);
+            _bookService = bookService;
         }
 
         [HttpPost]
@@ -41,7 +38,8 @@ namespace Bookify.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> GetBookById([FromRoute] Guid Id) { 
+        public async Task<IActionResult> GetBookById([FromRoute] Guid Id)
+        {
             var book = await _bookService.GetBookById(Id);
             return Ok(book);
         }
@@ -60,6 +58,5 @@ namespace Bookify.Controllers
             var result = await _bookService.DeleteBook(Id);
             return Ok(result);
         }
-
     }
 }

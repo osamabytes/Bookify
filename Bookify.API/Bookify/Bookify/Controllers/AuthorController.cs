@@ -1,8 +1,6 @@
-﻿using Bookify.Data.Data;
-using Bookify.Data.Models;
-using Bookify.Service.Services;
+﻿using Bookify.Service.interfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Controllers
@@ -12,11 +10,11 @@ namespace Bookify.Controllers
     [Route("api/[controller]")]
     public class AuthorController : Controller
     {
-        private readonly AuthorService _authorService;
+        private readonly IAuthorService _authorService;
 
-        public AuthorController(BookifyDbContext bookifyDbContext, UserManager<User> userManager)
+        public AuthorController(IAuthorService authorService)
         {
-            _authorService = new AuthorService(bookifyDbContext, userManager);
+            _authorService = authorService;
         }
 
         [HttpGet]
@@ -24,8 +22,8 @@ namespace Bookify.Controllers
         public async Task<IActionResult> SingleAuthor([FromRoute] Guid id)
         {
             var author = await _authorService.GetSingleAuthor(id);
-            
-            if(author == null) 
+
+            if (author == null)
                 return NotFound();
 
             return Ok(author);
@@ -84,10 +82,11 @@ namespace Bookify.Controllers
         {
             var result = await _authorService.DeleteAuthor(Id);
 
-            if (result)
+            if (result != null)
                 return Ok();
-            
+
             return BadRequest();
         }
+
     }
 }

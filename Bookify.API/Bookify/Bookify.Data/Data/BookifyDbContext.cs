@@ -1,11 +1,6 @@
-﻿using Bookify.Data.Models;
-using Bookify.Data.NavModels;
+﻿using Bookify.Domain.Navigations;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookify.Data.Data
 {

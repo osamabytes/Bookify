@@ -1,5 +1,4 @@
-﻿using Bookify.Data.Data;
-using Bookify.Service.Services;
+﻿using Bookify.Service.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +9,11 @@ namespace Bookify.Controllers
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
-        private readonly CategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(BookifyDbContext bookifyDbContext)
+        public CategoryController(ICategoryService categoryService)
         {
-            _categoryService = new CategoryService(bookifyDbContext);
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -29,21 +28,13 @@ namespace Bookify.Controllers
         public async Task<IActionResult> GetSingleCategory([FromRoute] Guid id)
         {
             var category = await _categoryService.GetSingleCategory(id);
-
-            if (category == null)
-                return NotFound();
-
             return Ok(category);
         }
 
         [HttpGet("AllBookCategories/{id}")]
-        public async Task<IActionResult> GetBookCategories(Guid Id)
+        public async Task<IActionResult> GetBookCategories(Guid id)
         {
-            var categories = await _categoryService.GetCategoriesListByBookId(Id);
-
-            if (categories == null)
-                return NotFound();
-
+            var categories = await _categoryService.GetCategoriesListByBookId(id);
             return Ok(categories);
         }
     }

@@ -1,9 +1,7 @@
-﻿using Bookify.Data.Data;
-using Bookify.Data.Models;
-using Bookify.Service.Interfaces;
-using Bookify.Service.Services;
+﻿using Bookify.Service.Beans;
+using Bookify.Service.interfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Controllers
@@ -13,22 +11,18 @@ namespace Bookify.Controllers
     [Route("api/[controller]")]
     public class StockController : Controller
     {
-        private readonly StockService _stockService;
+        private readonly IStockService _stockService;
 
-        public StockController(BookifyDbContext bookifyDbContext, UserManager<User> userManager)
+        public StockController(IStockService stockService)
         {
-            _stockService = new StockService(bookifyDbContext, userManager);
+            _stockService = stockService;
         }
 
         [HttpGet]
-        [Route("{BookId:Guid}")]
+        [Route("{id:Guid}")]
         public async Task<IActionResult> GetStockByBook(Guid BookId)
         {
             var stock = await _stockService.GetStockByBook(BookId);
-            
-            if(stock == null)
-                return NotFound();
-
             return Ok(stock);
         }
 

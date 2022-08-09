@@ -1,84 +1,126 @@
-﻿using Bookify.Data.CRUD;
-using Bookify.Data.Data;
-using Bookify.Data.Models;
-using Bookify.Service.Interfaces;
+﻿using Bookify.Domain.Navigations;
+using Bookify.Service.Beans;
+using Bookify.Service.interfaces;
+using Domain.Entities;
+using Domain.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookify.Service.Services
 {
-    public class BookshopService
+    public class BookShopService: IBookShopService
     {
-        private BookShopCRUD _bookshopCRUD;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<User> _userManager;
 
-        public BookshopService(BookifyDbContext bookifyDbContext, UserManager<User> _userManager)
+        public BookShopService(IUnitOfWork unitOfWork, UserManager<User> userManager)
         {
-            _bookshopCRUD = new BookShopCRUD(bookifyDbContext, _userManager);
+            _unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
 
-        public async Task<BookShop> AddBookshop(BookShop bookshop, Claim userClaim)
+        public async Task<BookShop?> AddBookShop(BookShop bookShop, Claim userClaim)
         {
-            return await _bookshopCRUD.InsertBookShop(bookshop, userClaim);
+            var user = await _userManager.FindByEmailAsync(userClaim.Value);
+
+            bookShop.Id = Guid.NewGuid();
+
+            // Add to context
+            await _unitOfWork.bookShops.Add(bookShop);
+
+            User_Bookshop userBookShop = new User_Bookshop();
+            userBookShop.Id = Guid.NewGuid();
+
+            userBookShop.BookShopId = bookShop.Id;
+            userBookShop.BookShop = bookShop;
+
+            userBookShop.UserId = user.Id;
+            userBookShop.User = user;
+
+            await _unitOfWork.userBookShops.Add(userBookShop);
+
+            await _unitOfWork.complete();
+
+            return bookShop;
         }
 
-        public async Task<BookShop> UpdateBookshop(BookShop bookshop)
+        public async Task<BookShop?> AddBookToBookShop(Book_BookShopInterface bookBookShops)
         {
-            return await _bookshopCRUD.UpdateBookShop(bookshop);
+            Book_Bookshop bookBookShop = new Book_Bookshop();
+            
+            bookBookShop.Id = Guid.NewGuid();
+            bookBookShop.BookId = bookBookShops.BookId;
+            bookBookShop.BookshopId = bookBookShops.BookshopId;
+
+            await _unitOfWork.bookBookShops.Add(bookBookShop);
+
+            await _unitOfWork.complete();
+
+            return await _unitOfWork.bookShops.GetByid(bookBookShops.BookshopId);
         }
 
-        public async Task<Boolean> DeleteBookshop(Guid id)
+        public async Task<BookShop?> DeleteBookShop(Guid BookShopId)
         {
-            return await _bookshopCRUD.DeleteBookShop(id);
+            var bookShop = await _unitOfWork.bookShops.GetByid(BookShopId);
+            var userBookShop = await _unitOfWork.userBookShops.Find(ub => ub.BookShopId == BookShopId);
+
+            _unitOfWork.bookShops.Remove(bookShop);
+            _unitOfWork.userBookShops.Remove(userBookShop);
+
+            await _unitOfWork.complete();
+
+            return bookShop;
         }
 
-        public async Task<List<BookShop>> GetAllUserBookshops(Claim userClaim)
+        public async Task<IEnumerable<Book?>?> GetBooksByBookshopId(Guid BookShopId)
         {
-            List<BookShop> bookShops = new List<BookShop>();
+            return await _unitOfWork.bookShops.SelectAllByBookId(BookShopId);
+        }
 
-            var user_bookshops = await _bookshopCRUD.SelectBookShopByUserId(userClaim);
+        public async Task<BookShop?> GetBookShopByBookId(Guid BookId)
+        {
+            return await _unitOfWork.bookShops.GetByBookId(BookId);
+        }
 
-            foreach (var user_bookshop in user_bookshops)
+        public async Task<BookShop?> GetSingleBookShop(Guid Id)
+        {
+            var bookShop = await _unitOfWork.bookShops.GetByid(Id);
+            return bookShop;
+        }
+
+        public async Task<IEnumerable<BookShop?>?> GetUserBookShops(Claim userClaim)
+        {
+            var bookShops = new List<BookShop>();
+
+            var user = await _userManager.FindByEmailAsync(userClaim.Value);
+            var userBookShops = await _unitOfWork.bookShops.SelectBookShopByUserId(user);
+
+            foreach(var userBookShop in userBookShops)
             {
-                bookShops.Add(user_bookshop.BookShop);
+                bookShops.Add(userBookShop.BookShop);
             }
 
             return bookShops;
         }
 
-        public async Task<BookShop> SetBookToBookShops(Book_BookShopInterface bookBookShop)
+        public async Task<BookShop?> UpdateBookShop(BookShop bookShop)
         {
-            Guid BookId = bookBookShop.BookId;
-            Guid BookShopId = bookBookShop.BookshopId;
-
-            return await _bookshopCRUD.InsertBookToBookShop(BookId, BookShopId);
+            var bs = _unitOfWork.bookShops.Edit(bookShop);
+            await _unitOfWork.complete();
+            return bs;
         }
 
-        public async Task<BookShop> UpdateBookToBookshop(Book_BookShopInterface bookBookShop)
+        public async Task<BookShop?> UpdateBookToBookShop(Book_BookShopInterface bookBookShop)
         {
-            Guid BookId = bookBookShop.BookId;
-            Guid BookShopId = bookBookShop.BookshopId;
+            var bbs = await _unitOfWork.bookBookShops.Find(bbs => bbs.BookId == bookBookShop.BookId);
+            bbs.BookshopId = bookBookShop.BookshopId;
 
-            return await _bookshopCRUD.UpdateBookToBookShop(BookId, BookShopId);
+            _unitOfWork.bookBookShops.Edit(bbs);
+            await _unitOfWork.complete();
+
+            return await _unitOfWork.bookShops.GetByid(bookBookShop.BookshopId);
         }
 
-        public async Task<BookShop> GetBookShopbyBookId(Guid bookId)
-        {
-            return await _bookshopCRUD.SelectBookShopByBookId(bookId);
-        }
 
-        public async Task<BookShop> GetSingleBookshop(Guid Id)
-        {
-            return await _bookshopCRUD.SelectBookShopById(Id);
-        }
-
-        public async Task<List<Book>> GetBooksByBookshopId(Guid BookShopId)
-        {
-            return await _bookshopCRUD.SelectAllByBookId(BookShopId);
-        }
     }
 }

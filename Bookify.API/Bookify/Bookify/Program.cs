@@ -1,12 +1,20 @@
 using AutoMapper;
 using Bookify.Data.Data;
 using Bookify.Data.JwtBearer;
-using Bookify.Data.Models;
+using Bookify.Service.interfaces;
 using Bookify.Service.Mapper;
+using Bookify.Service.Services;
+using Domain.Entities;
+using Domain.Interfaces;
+using Domain.Interfaces.Navigations;
+using Domain.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using Repository;
+using Repository.NavigationRepo;
+using Repository.Repositories;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,6 +68,34 @@ builder.Services.AddAuthentication(option =>
 });
 
 builder.Services.AddScoped<JwtHandler>();
+
+// Add UnitOfWork
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+// Add Services to the Container
+builder.Services.AddTransient<IAuthorService, AuthorService>();
+builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<IBookShopService, BookShopService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IStockService, StockService>();
+builder.Services.AddTransient<IUserService, UserService>();
+
+// Add Repositories and Navigation Repository
+builder.Services.AddTransient(typeof(IGeneric<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<IAuthor, AuthorRepository>();
+builder.Services.AddTransient<IBook, BookRepository>();
+builder.Services.AddTransient<IBookShop, BookShopRepository>();
+builder.Services.AddTransient<ICategory, CategoryRepository>();
+builder.Services.AddTransient<IStock, StockRepository>();
+builder.Services.AddTransient<IUser, UserRepository>();
+
+builder.Services.AddTransient<IAuthorBook, AuthorBookRepository>();
+builder.Services.AddTransient<IBookBookShop, BookBookShopRepository>();
+builder.Services.AddTransient<IBookCategory, BookCategoryRepository>();
+builder.Services.AddTransient<IBookStock, BookStockRepository>();
+builder.Services.AddTransient<IUserAuthor, UserAuthorRepository>();
+builder.Services.AddTransient<IUserBook, UserBookRepository>();
+builder.Services.AddTransient<IUserBookShop, UserBookShopRepository>();
 
 var app = builder.Build();
 
