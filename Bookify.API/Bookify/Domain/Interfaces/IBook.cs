@@ -6,7 +6,7 @@ namespace Domain.Interfaces
 {
     public interface IBook: IGeneric<Book>
     {
-        Task<IEnumerable<Book?>?> GetAllByUserId(UserManager<User> userManager, Claim claim);
+        Task<IEnumerable<Book?>?> GetAllByUserId(User user);
         Task<IEnumerable<Book?>?> GetAllByBookShopId(Guid bookShopId);
     }
 }

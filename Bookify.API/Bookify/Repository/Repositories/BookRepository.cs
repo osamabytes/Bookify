@@ -28,12 +28,11 @@ namespace Repository.Repositories
             return books;
         }
 
-        public async Task<IEnumerable<Book?>?> GetAllByUserId(UserManager<User> userManager, Claim claim)
+        public async Task<IEnumerable<Book?>?> GetAllByUserId(User user)
         {
-            var user = await userManager.FindByIdAsync(claim.Value);
             var userBooks = await _bookifyDbContext.User_Book.Where<User_Book>(ub => ub.UserId == user.Id).ToListAsync();
 
-            var books = new List<Book?>();
+            var books = new List<Book>();
             foreach(var userBook in userBooks)
             {
                 var book = await _bookifyDbContext.Book.FindAsync(userBook.BookId);
