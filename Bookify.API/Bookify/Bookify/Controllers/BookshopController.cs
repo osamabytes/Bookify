@@ -20,7 +20,7 @@ namespace Bookify.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> SingleBookShop([FromBody] Guid id)
+        public async Task<IActionResult> SingleBookShop([FromRoute] Guid id)
         {
             var bookShop = await _bookShopService.GetSingleBookShop(id);
             return Ok(bookShop);
@@ -52,8 +52,8 @@ namespace Bookify.Controllers
         [HttpGet("GetBooksByBookshop/{bookShopId}")]
         public async Task<IActionResult> GetBooksByBookShop(Guid BookShopId)
         {
-            var bookShops = await _bookShopService.GetBooksByBookshopId(BookShopId);
-            return Ok(bookShops);
+            var books = await _bookShopService.GetBooksByBookshopId(BookShopId);
+            return Ok(books);
         }
 
         [HttpGet("GetBookShopbyBook/{bookId}")]

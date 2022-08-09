@@ -19,7 +19,7 @@ namespace Bookify.Controllers
         }
 
         [HttpGet]
-        [Route("{id:Guid}")]
+        [Route("{BookId:Guid}")]
         public async Task<IActionResult> GetStockByBook(Guid BookId)
         {
             var stock = await _stockService.GetStockByBook(BookId);

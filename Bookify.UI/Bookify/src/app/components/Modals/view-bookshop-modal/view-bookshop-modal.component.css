@@ -35,3 +35,8 @@
     background-color: rgb(203, 207, 211);
     border-bottom: 2px solid darkslategray;
 }
+
+.book_container > p{
+    position: relative;
+    bottom: 20px;
+}

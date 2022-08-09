@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
 import { BookStock } from 'src/app/interfaces/Book_Stock.interface';
+import { Book } from 'src/app/models/Book.model';
 import { Stock } from 'src/app/models/Stock.model';
 import { StockService } from 'src/app/services/Stock.Service/stock.service';
 import { ToastService } from 'src/app/services/Toast.Service/toast.service';
@@ -13,7 +14,13 @@ import { ToastService } from 'src/app/services/Toast.Service/toast.service';
 })
 export class AddBookStockComponent implements OnInit {
 
-  book: any;
+  book: Book = {
+    id: '00000000-0000-0000-0000-000000000000',
+    name: '',
+    isbn: '',
+    description: '',
+    active: false
+  };
 
   stock: Stock = {
     id: '00000000-0000-0000-0000-000000000000',
@@ -29,7 +36,8 @@ export class AddBookStockComponent implements OnInit {
     this.stockService.GetBookStock(this.book.id)
     .subscribe({
       next: (stock) => {
-        this.stock = stock;
+        if(stock)
+          this.stock = stock;
       },
       error: (err) => {
         console.log(err);

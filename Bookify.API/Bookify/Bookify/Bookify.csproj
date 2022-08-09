@@ -21,11 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Uploads\" />
-    <Folder Include="Uploads\" />
-<<<<<<< HEAD
-    <Folder Include="Uploads\" />
-=======
->>>>>>> Decouple_Backend
   </ItemGroup>
 
 </Project>

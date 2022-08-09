@@ -14,9 +14,10 @@
 
   <div class="book_container">
     <h2>Books</h2>
-    <mat-list role="list">
+    <mat-list *ngIf="books.length > 0" role="list">
       <mat-list-item *ngFor="let book of books">{{book.name}}</mat-list-item>
     </mat-list>
+    <p *ngIf="books.length == 0">No Books Available.</p>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
