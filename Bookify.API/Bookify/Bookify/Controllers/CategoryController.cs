@@ -15,5 +15,27 @@ namespace Bookify.Controllers
         {
             _categoryService = categoryService;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AllCategories()
+        {
+            var categories = await _categoryService.CategoriesList();
+            return Ok(categories);
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetSingleCategory([FromRoute] Guid id)
+        {
+            var category = await _categoryService.GetSingleCategory(id);
+            return Ok(category);
+        }
+
+        [HttpGet("AllBookCategories/{id}")]
+        public async Task<IActionResult> GetBookCategories(Guid id)
+        {
+            var categories = await _categoryService.GetCategoriesListByBookId(id);
+            return Ok(categories);
+        }
     }
 }
