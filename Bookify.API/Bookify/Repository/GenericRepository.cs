@@ -42,11 +42,23 @@ namespace Repository
             return entity;
         }
 
-        public async Task<IEnumerable<T?>> Find(Expression<Func<T, bool>> expression)
+        public async Task<T?> Find(Expression<Func<T, bool>> expression)
         {
             try
             {
-                return await _bookifyDbContext.Set<T>().Where(expression).ToListAsync();
+                return await _bookifyDbContext.Set<T>().FirstOrDefaultAsync(expression);
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<T?>> FindAll(Expression<Func<T, bool>> expression)
+        {
+            try
+            {
+                return await _bookifyDbContext.Set<T>().Where<T>(expression).ToListAsync();
             }catch(Exception e)
             {
                 Console.WriteLine(e.Message);

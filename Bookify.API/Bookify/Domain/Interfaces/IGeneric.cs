@@ -6,7 +6,8 @@ namespace Domain.Interfaces
     {
         Task<T?> GetByid(Guid id);
         Task<IEnumerable<T?>> GetAll();
-        Task<IEnumerable<T?>> Find(Expression<Func<T, bool>> expression);
+        Task<T?> Find(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T?>> FindAll(Expression<Func<T, bool>> expression);
         Task<T?> Add(T entity);
         T? Edit(T entity);
         Boolean Remove(T entity);
