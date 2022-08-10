@@ -47,10 +47,12 @@ export class AddToBookShopComponent implements OnInit {
     this.bookShopService.GetBookShopByBookId(this.book.id)
     .subscribe({
       next: (bookShop) => {
-        this.bookShop = bookShop;
-        this.bookBookShopInterface.bookShopId = this.bookShop.id;
+        if(bookShop){
+          this.bookShop = bookShop;
+          this.bookBookShopInterface.bookShopId = this.bookShop.id;
 
-        this.activated = true;
+          this.activated = true;
+        }
       },
       error: (response) => {
         console.log(response);
