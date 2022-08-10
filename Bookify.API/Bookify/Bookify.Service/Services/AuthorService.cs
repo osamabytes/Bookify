@@ -50,6 +50,10 @@ namespace Bookify.Service.Services
         {
             var author = await _unitOfWork.authors.GetByid(AuthorId);
             var userAuthor = await _unitOfWork.userAuthors.Find(ua => ua.AuthorId == AuthorId);
+            var authorBooks = await _unitOfWork.authorBooks.FindAll(ab => ab.AuthorId == AuthorId);
+
+            if (authorBooks.Count() > 0)
+                return null;
 
             _unitOfWork.authors.Remove(author);
             _unitOfWork.userAuthors.Remove(userAuthor);

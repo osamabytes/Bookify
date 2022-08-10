@@ -63,6 +63,10 @@ namespace Bookify.Service.Services
         {
             var bookShop = await _unitOfWork.bookShops.GetByid(BookShopId);
             var userBookShop = await _unitOfWork.userBookShops.Find(ub => ub.BookShopId == BookShopId);
+            var bookBookShops = await _unitOfWork.bookBookShops.FindAll(bbs => bbs.BookshopId == BookShopId);
+
+            if (bookBookShops.Count() > 0)
+                return null;
 
             _unitOfWork.bookShops.Remove(bookShop);
             _unitOfWork.userBookShops.Remove(userBookShop);

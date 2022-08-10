@@ -116,6 +116,9 @@ export class AuthorsComponent implements AfterViewInit {
           error: (err) => {
             if(err.status == 400){
               this.toastService.openToast(["Bad Request"], "danger");
+
+              var errors = err.error.errors;
+              this.toastService.openToast(errors, "danger");
             }
           }
         });

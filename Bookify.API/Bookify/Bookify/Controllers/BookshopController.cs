@@ -1,4 +1,5 @@
 ﻿using Bookify.Service.Beans;
+using Bookify.Service.Beans.Response;
 using Bookify.Service.interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -88,7 +89,7 @@ namespace Bookify.Controllers
             if(bookShop != null)
                 return Ok();
 
-            return BadRequest();
+            return BadRequest(new GeneralResponse { Status = false, Errors =  new List<string> { "BookShop is Related to Some Books. Please Check before Deletion" } });
         }
     }
 }

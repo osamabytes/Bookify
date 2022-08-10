@@ -1,4 +1,5 @@
-﻿using Bookify.Service.interfaces;
+﻿using Bookify.Service.Beans.Response;
+using Bookify.Service.interfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -85,7 +86,7 @@ namespace Bookify.Controllers
             if (result != null)
                 return Ok();
 
-            return BadRequest();
+            return BadRequest(new GeneralResponse { Status = false, Errors =  new List<string> { "Author is Related to Some Books. Please Check before Deletion" } });
         }
 
     }
