@@ -13,6 +13,16 @@
     margin: 10px 0 7px 0;
 }
 
+mat-label{
+    font-weight: 500;
+}
+
 mat-error{
-    font-size: 12px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+button{
+    position: relative;
+    top: 10px;
 }

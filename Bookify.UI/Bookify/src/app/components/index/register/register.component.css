@@ -51,6 +51,10 @@ form{
     width: 40%;
 }
 
+mat-label{
+    font-weight: 500;
+}
+
 mat-panel-title > h2{
     margin: 5px;
 }
