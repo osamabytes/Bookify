@@ -71,7 +71,11 @@ namespace Bookify.Service.Services
         {
             var book = await _unitOfWork.books.GetByid(Id);
 
-            return _unitOfWork.books.Remove(book);
+            var delete = _unitOfWork.books.Remove(book);
+
+            await _unitOfWork.complete();
+
+            return delete;
         }
 
         public async Task<IEnumerable<Book?>?> GetAllBooks(Claim claim)
