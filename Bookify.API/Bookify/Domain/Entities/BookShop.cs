@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bookify.Domain.Navigations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
@@ -13,7 +14,7 @@ namespace Domain.Entities
         public string? Address { get; set; }
 
         // navigation properties
-        /*public List<Book_Bookshop>? Book_Bookshops { get; set; }
-        public User_Bookshop? User_Bookshop { get; set; }*/
+        public List<Book_Bookshop>? Book_Bookshops { get; set; }
+        public User_Bookshop? User_Bookshop { get; set; }
     }
 }

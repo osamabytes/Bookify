@@ -75,3 +75,8 @@ C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\ne
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\Bookify.pdb
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\Bookify.genruntimeconfig.cache
 C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\ref\Bookify.dll
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\staticwebassets\msbuild.Bookify.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\staticwebassets\msbuild.build.Bookify.props
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Bookify.props
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Bookify.props
+C:\Users\osama\Documents\Github\Bookify\Bookify.API\Bookify\Bookify\obj\Debug\net6.0\staticwebassets.pack.json

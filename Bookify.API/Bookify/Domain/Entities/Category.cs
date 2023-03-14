@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using Bookify.Domain.Navigations;
+
+namespace Domain.Entities
 {
     public class Category
     {
@@ -6,6 +8,6 @@
         public string? Name { get; set; }
 
         // navigation properties
-        /*public List<Book_Category>? Book_Categories { get; set; }*/
+        public List<Book_Category>? Book_Categories { get; set; }
     }
 }

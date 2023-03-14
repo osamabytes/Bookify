@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Bookify.Domain.Navigations;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities
@@ -35,10 +36,8 @@ namespace Domain.Entities
         public string? Expiration { get; set; }
 
         // Navigation
-        /*public List<User_Book>? User_Books { get; set; }
+        public List<User_Book>? User_Books { get; set; }
         public List<User_Bookshop>? User_Bookshops { get; set; }
-        public List<User_Author>? User_Authors { get; set; }*/
-
-
+        public List<User_Author>? User_Authors { get; set; }
     }
 }

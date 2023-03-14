@@ -13,7 +13,7 @@ namespace Bookify.Data.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // One to many relationship between User and Bookshop
-            /*modelBuilder.Entity<User>()
+            modelBuilder.Entity<User>()
                 .HasMany(u => u.User_Bookshops)
                 .WithOne(ub => ub.User)
                 .HasForeignKey(ub => ub.UserId);
@@ -112,7 +112,7 @@ namespace Bookify.Data.Data
             modelBuilder.Entity<Book_Category>()
                 .HasOne(c => c.Category)
                 .WithMany(bc => bc.Book_Categories)
-                .HasForeignKey(c => c.CategoryId);*/                                                          
+                .HasForeignKey(c => c.CategoryId);
 
         }
 

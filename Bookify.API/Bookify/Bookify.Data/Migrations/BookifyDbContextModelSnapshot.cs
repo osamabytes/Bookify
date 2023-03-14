@@ -22,7 +22,161 @@ namespace Bookify.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Bookify.Data.Models.Author", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.Author_Book", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.ToTable("Author_Book");
+                });
+
+            modelBuilder.Entity("Bookify.Domain.Navigations.Book_Bookshop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookshopId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.HasIndex("BookshopId");
+
+                    b.ToTable("Book_BookShop");
+                });
+
+            modelBuilder.Entity("Bookify.Domain.Navigations.Book_Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Book_Category");
+                });
+
+            modelBuilder.Entity("Bookify.Domain.Navigations.Book_Stock", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StockId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.HasIndex("StockId")
+                        .IsUnique();
+
+                    b.ToTable("Book_Stock");
+                });
+
+            modelBuilder.Entity("Bookify.Domain.Navigations.User_Author", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Author");
+                });
+
+            modelBuilder.Entity("Bookify.Domain.Navigations.User_Book", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Book");
+                });
+
+            modelBuilder.Entity("Bookify.Domain.Navigations.User_Bookshop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookShopId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookShopId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_BookShop");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +195,7 @@ namespace Bookify.Data.Migrations
                     b.ToTable("Author");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.Book", b =>
+            modelBuilder.Entity("Domain.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +221,7 @@ namespace Bookify.Data.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.BookShop", b =>
+            modelBuilder.Entity("Domain.Entities.BookShop", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +243,7 @@ namespace Bookify.Data.Migrations
                     b.ToTable("BookShop");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.Category", b =>
+            modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +257,7 @@ namespace Bookify.Data.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.Stock", b =>
+            modelBuilder.Entity("Domain.Entities.Stock", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,12 +266,15 @@ namespace Bookify.Data.Migrations
                     b.Property<int>("ItemStock")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.User", b =>
+            modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,171 +377,17 @@ namespace Bookify.Data.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Bookify.Data.NavModels.Author_Book", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.Author_Book", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
-
-                    b.ToTable("Author_Book");
-                });
-
-            modelBuilder.Entity("Bookify.Data.NavModels.Book_Bookshop", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookshopId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
-
-                    b.HasIndex("BookshopId");
-
-                    b.ToTable("Book_BookShop");
-                });
-
-            modelBuilder.Entity("Bookify.Data.NavModels.Book_Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Book_Category");
-                });
-
-            modelBuilder.Entity("Bookify.Data.NavModels.Book_Stock", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("StockId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
-
-                    b.HasIndex("StockId")
-                        .IsUnique();
-
-                    b.ToTable("Book_Stock");
-                });
-
-            modelBuilder.Entity("Bookify.Data.NavModels.User_Author", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("User_Author");
-                });
-
-            modelBuilder.Entity("Bookify.Data.NavModels.User_Book", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("User_Book");
-                });
-
-            modelBuilder.Entity("Bookify.Data.NavModels.User_Bookshop", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookShopId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookShopId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("User_BookShop");
-                });
-
-            modelBuilder.Entity("Bookify.Data.NavModels.Author_Book", b =>
-                {
-                    b.HasOne("Bookify.Data.Models.Author", "Author")
+                    b.HasOne("Domain.Entities.Author", "Author")
                         .WithMany("Author_Books")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bookify.Data.Models.Book", "Book")
+                    b.HasOne("Domain.Entities.Book", "Book")
                         .WithOne("Author_Book")
-                        .HasForeignKey("Bookify.Data.NavModels.Author_Book", "BookId")
+                        .HasForeignKey("Bookify.Domain.Navigations.Author_Book", "BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -393,15 +396,15 @@ namespace Bookify.Data.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("Bookify.Data.NavModels.Book_Bookshop", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.Book_Bookshop", b =>
                 {
-                    b.HasOne("Bookify.Data.Models.Book", "Book")
+                    b.HasOne("Domain.Entities.Book", "Book")
                         .WithOne("Book_BookShop")
-                        .HasForeignKey("Bookify.Data.NavModels.Book_Bookshop", "BookId")
+                        .HasForeignKey("Bookify.Domain.Navigations.Book_Bookshop", "BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bookify.Data.Models.BookShop", "BookShop")
+                    b.HasOne("Domain.Entities.BookShop", "BookShop")
                         .WithMany("Book_Bookshops")
                         .HasForeignKey("BookshopId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -412,15 +415,15 @@ namespace Bookify.Data.Migrations
                     b.Navigation("BookShop");
                 });
 
-            modelBuilder.Entity("Bookify.Data.NavModels.Book_Category", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.Book_Category", b =>
                 {
-                    b.HasOne("Bookify.Data.Models.Book", "Book")
+                    b.HasOne("Domain.Entities.Book", "Book")
                         .WithMany("Book_Categories")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bookify.Data.Models.Category", "Category")
+                    b.HasOne("Domain.Entities.Category", "Category")
                         .WithMany("Book_Categories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -431,17 +434,17 @@ namespace Bookify.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Bookify.Data.NavModels.Book_Stock", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.Book_Stock", b =>
                 {
-                    b.HasOne("Bookify.Data.Models.Book", "Book")
+                    b.HasOne("Domain.Entities.Book", "Book")
                         .WithOne("Book_Stock")
-                        .HasForeignKey("Bookify.Data.NavModels.Book_Stock", "BookId")
+                        .HasForeignKey("Bookify.Domain.Navigations.Book_Stock", "BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bookify.Data.Models.Stock", "Stock")
+                    b.HasOne("Domain.Entities.Stock", "Stock")
                         .WithOne("Book_Stock")
-                        .HasForeignKey("Bookify.Data.NavModels.Book_Stock", "StockId")
+                        .HasForeignKey("Bookify.Domain.Navigations.Book_Stock", "StockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -450,15 +453,15 @@ namespace Bookify.Data.Migrations
                     b.Navigation("Stock");
                 });
 
-            modelBuilder.Entity("Bookify.Data.NavModels.User_Author", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.User_Author", b =>
                 {
-                    b.HasOne("Bookify.Data.Models.Author", "Author")
+                    b.HasOne("Domain.Entities.Author", "Author")
                         .WithOne("User_Author")
-                        .HasForeignKey("Bookify.Data.NavModels.User_Author", "AuthorId")
+                        .HasForeignKey("Bookify.Domain.Navigations.User_Author", "AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bookify.Data.Models.User", "User")
+                    b.HasOne("Domain.Entities.User", "User")
                         .WithMany("User_Authors")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -469,15 +472,15 @@ namespace Bookify.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Bookify.Data.NavModels.User_Book", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.User_Book", b =>
                 {
-                    b.HasOne("Bookify.Data.Models.Book", "Book")
+                    b.HasOne("Domain.Entities.Book", "Book")
                         .WithOne("User_Book")
-                        .HasForeignKey("Bookify.Data.NavModels.User_Book", "BookId")
+                        .HasForeignKey("Bookify.Domain.Navigations.User_Book", "BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bookify.Data.Models.User", "User")
+                    b.HasOne("Domain.Entities.User", "User")
                         .WithMany("User_Books")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,15 +491,15 @@ namespace Bookify.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Bookify.Data.NavModels.User_Bookshop", b =>
+            modelBuilder.Entity("Bookify.Domain.Navigations.User_Bookshop", b =>
                 {
-                    b.HasOne("Bookify.Data.Models.BookShop", "BookShop")
+                    b.HasOne("Domain.Entities.BookShop", "BookShop")
                         .WithOne("User_Bookshop")
-                        .HasForeignKey("Bookify.Data.NavModels.User_Bookshop", "BookShopId")
+                        .HasForeignKey("Bookify.Domain.Navigations.User_Bookshop", "BookShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Bookify.Data.Models.User", "User")
+                    b.HasOne("Domain.Entities.User", "User")
                         .WithMany("User_Bookshops")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -507,14 +510,14 @@ namespace Bookify.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.Author", b =>
+            modelBuilder.Entity("Domain.Entities.Author", b =>
                 {
                     b.Navigation("Author_Books");
 
                     b.Navigation("User_Author");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.Book", b =>
+            modelBuilder.Entity("Domain.Entities.Book", b =>
                 {
                     b.Navigation("Author_Book");
 
@@ -527,24 +530,24 @@ namespace Bookify.Data.Migrations
                     b.Navigation("User_Book");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.BookShop", b =>
+            modelBuilder.Entity("Domain.Entities.BookShop", b =>
                 {
                     b.Navigation("Book_Bookshops");
 
                     b.Navigation("User_Bookshop");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.Category", b =>
+            modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
                     b.Navigation("Book_Categories");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.Stock", b =>
+            modelBuilder.Entity("Domain.Entities.Stock", b =>
                 {
                     b.Navigation("Book_Stock");
                 });
 
-            modelBuilder.Entity("Bookify.Data.Models.User", b =>
+            modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Navigation("User_Authors");
 
